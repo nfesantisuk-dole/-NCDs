@@ -37,7 +37,7 @@
         .hover-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .hover-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(8, 145, 178, 0.2); }
 
-        /* --- Certificate Styling (A4 Landscape) --- */
+        /* --- Certificate Styling (A4 Landscape Optimized) --- */
         .cert-container {
             width: 1122px; height: 794px; 
             background: white; position: relative;
@@ -309,14 +309,14 @@
 
     <!-- CERTIFICATE OVERLAY -->
     <div id="cert-overlay" class="fixed inset-0 bg-slate-900 z-[200] hidden overflow-y-auto">
-        <div class="min-h-screen py-16 px-6 flex flex-col items-center">
-            <div class="mb-12 text-center text-white no-print">
+        <div class="min-h-screen py-8 px-6 flex flex-col items-center">
+            <div class="mb-8 text-center text-white no-print">
                 <h2 class="text-3xl font-bold mb-4">เกียรติบัตรของคุณพร้อมแล้ว!</h2>
                 <div class="flex gap-4 justify-center">
-                    <button onclick="window.print()" class="bg-white text-slate-900 px-8 py-4 rounded-3xl font-bold shadow-xl flex items-center gap-3">
-                        <i class="fas fa-print"></i> พิมพ์ / PDF (1 หน้า)
+                    <button onclick="window.print()" class="bg-white text-slate-900 px-8 py-3 rounded-3xl font-bold shadow-xl flex items-center gap-3">
+                        <i class="fas fa-print"></i> พิมพ์ / PDF (1 หน้าพอดี)
                     </button>
-                    <button onclick="location.reload()" class="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-3xl font-bold">ปิด</button>
+                    <button onclick="location.reload()" class="bg-white/10 text-white border border-white/20 px-8 py-3 rounded-3xl font-bold">ปิด</button>
                 </div>
             </div>
             <div id="cert-wrapper" class="origin-top border-none">
@@ -326,45 +326,45 @@
                     <div class="cert-border-gold"></div>
                     <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
                     
-                    <div class="relative z-10 h-full flex flex-col items-center justify-between p-12 text-center">
+                    <div class="relative z-10 h-full flex flex-col items-center justify-between p-10 text-center">
                         <!-- Header Section -->
-                        <div class="space-y-2 mt-4">
-                            <i class="fas fa-heart-circle-check text-6xl text-[#164e63] mb-2"></i>
-                            <h3 class="text-xs font-bold text-amber-600 tracking-[0.4em] uppercase">Knowledge Achievement</h3>
-                            <h1 class="text-2xl font-bold tracking-[0.1em] text-[#164e63] mt-1 uppercase">เกียรติบัตรฉบับนี้มอบให้เพื่อแสดงว่า</h1>
+                        <div class="space-y-1 mt-6">
+                            <i class="fas fa-heart-circle-check text-5xl text-[#164e63] mb-2"></i>
+                            <h3 class="text-[10px] font-bold text-amber-600 tracking-[0.4em] uppercase">Knowledge Achievement</h3>
+                            <h1 class="text-xl font-bold tracking-[0.1em] text-[#164e63] mt-1 uppercase">เกียรติบัตรฉบับนี้มอบให้เพื่อแสดงว่า</h1>
                         </div>
 
                         <!-- Recipient Name -->
-                        <div class="my-2 w-full">
-                            <h2 id="display-name" class="text-4xl font-bold text-slate-800 leading-none py-3 border-b-2 border-slate-200 inline-block min-w-[450px]">...</h2>
+                        <div class="my-1 w-full">
+                            <h2 id="display-name" class="text-4xl font-bold text-slate-800 leading-none py-2 border-b-2 border-slate-200 inline-block min-w-[400px]">...</h2>
                         </div>
 
                         <!-- Description Section -->
-                        <div class="space-y-2">
-                            <p class="text-base text-slate-500 font-medium">ได้ผ่านการทดสอบในระบบนิทรรศการออนไลน์</p>
-                            <h3 class="text-xl font-bold text-[#164e63] tracking-tight">"รู้เท่าทันภัยเงียบ กลุ่มโรค NCDs 2026"</h3>
-                            <p class="text-sm text-slate-400 mt-2 italic">สกร.ระดับอำเภอดอยหล่อ จังหวัดเชียงใหม่</p>
+                        <div class="space-y-1">
+                            <p class="text-sm text-slate-500 font-medium">ได้ผ่านการทดสอบระบบนิทรรศการออนไลน์</p>
+                            <h3 class="text-lg font-bold text-[#164e63] tracking-tight">"รู้เท่าทันภัยเงียบ กลุ่มโรค NCDs 2026"</h3>
+                            <p class="text-xs text-slate-400 mt-2 italic">สกร.ระดับอำเภอดอยหล่อ จังหวัดเชียงใหม่</p>
                         </div>
 
                         <!-- Footer Section -->
-                        <div class="w-full grid grid-cols-3 items-end mb-6 px-16">
+                        <div class="w-full grid grid-cols-3 items-end mb-8 px-20">
                             <div class="text-left">
-                                <p class="text-[8px] text-slate-400 font-mono tracking-widest uppercase mb-1">Validation No.</p>
+                                <p class="text-[7px] text-slate-400 font-mono tracking-widest uppercase mb-1">Validation No.</p>
                                 <p id="display-id" class="text-sm font-bold font-mono text-cyan-800">REF: NCD-XXXXX</p>
                             </div>
                             
                             <div class="flex flex-col items-center">
-                                <div class="w-16 h-16 rounded-full border-2 border-[#164e63]/10 flex items-center justify-center relative">
-                                    <p class="text-[7px] font-bold text-[#164e63] text-center leading-tight">OFFICIALLY<br>VERIFIED</p>
+                                <div class="w-14 h-14 rounded-full border-2 border-[#164e63]/10 flex items-center justify-center relative">
+                                    <p class="text-[6px] font-bold text-[#164e63] text-center leading-tight">OFFICIALLY<br>VERIFIED</p>
                                 </div>
-                                <p class="text-[7px] font-bold text-slate-400 mt-1 uppercase tracking-[0.1em]">Digital Authentication</p>
+                                <p class="text-[6px] font-bold text-slate-400 mt-1 uppercase tracking-[0.1em]">Digital Authentication</p>
                             </div>
 
                             <div class="text-right flex flex-col items-end">
-                                <div class="bg-white p-1.5 border border-slate-100 mb-1 inline-block">
-                                    <img id="display-qr" src="" class="w-16 h-16">
+                                <div class="bg-white p-1 border border-slate-100 mb-1 inline-block">
+                                    <img id="display-qr" src="" class="w-14 h-14">
                                 </div>
-                                <p class="text-[8px] text-slate-400 font-mono uppercase mb-0.5">Issued Date</p>
+                                <p class="text-[7px] text-slate-400 font-mono uppercase mb-0.5">Issued Date</p>
                                 <p id="display-date" class="text-xs font-bold text-slate-800">...</p>
                             </div>
                         </div>
@@ -377,7 +377,7 @@
     <script>
         // --- ส่วนกำหนดค่า (Configuration) ---
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxmRN5CZlCwhZ4rXrNXNHzT9lsUIZGWbQOZfJ5cbZs4btfBeNiUnjCMXil-sEYG6GxDQ/exec'; 
-        const apiKey = ""; 
+        const apiKey = ""; // Do not add API key here. Environment provides it.
 
         const diseases = [
             { 
@@ -387,9 +387,9 @@
                 icon: 'fa-cubes-stacked', 
                 color: 'text-orange-500', 
                 bg: 'bg-orange-50', 
-                desc: 'ภาวะที่ร่างกายมีระดับน้ำตาลในเลือดสูงกว่าปกติเรื้อรัง เกิดจากความผิดปกติของการผลิตฮอร์โมนอินซูลินจากตับอ่อน หรือร่างกายตอบสนองต่ออินซูลินลดลง (ภาวะดื้ออินซูลิน) ทำให้เกิดการสะสมของน้ำตาลในกระแสเลือดและนำไปสู่ความเสื่อมของหลอดเลือดทั่วร่างกาย', 
+                desc: 'ภาวะที่ร่างกายมีระดับน้ำตาลในเลือดสูงกว่าปกติเรื้อรัง เกิดจากความผิดปกติของการผลิตฮอร์โมนอินซูลินจากตับอ่อน หรือร่างกายตอบสนองต่ออินซูลินลดลง (ภาวะดื้ออินซูลิน)', 
                 symptoms: ['ปัสสาวะบ่อยและปริมาณมากผิดปกติ', 'กระหายน้ำบ่อยและคอแห้ง', 'น้ำหนักลดโดยไม่ทราบสาเหตุชัดเจน', 'แผลหายช้าหรือติดเชื้อได้ง่ายขึ้น'], 
-                prevention: 'ควบคุมการบริโภคน้ำตาลและแป้งขัดขาว เน้นใยอาหารจากผัก ออกกำลังกายอย่างน้อย 150 นาทีต่อสัปดาห์ และตรวจเช็กระดับน้ำตาลในเลือดประจำปี', 
+                prevention: 'ควบคุมการบริโภคน้ำตาลและแป้งขัดขาว เน้นใยอาหารจากผัก ออกกำลังกายอย่างสม่ำเสมอ และตรวจระดับน้ำตาลในเลือดประจำปี', 
                 videoId: '_x8H1AvgVOU' 
             },
             { 
@@ -399,7 +399,7 @@
                 icon: 'fa-heart-circle-bolt', 
                 color: 'text-red-600', 
                 bg: 'bg-red-50', 
-                desc: 'ภาวะแรงดันเลือดที่ผนังหลอดเลือดแดงสูงเกินกว่าค่าปกติ (140/90 mmHg) อย่างต่อเนื่อง เป็นปัจจัยเสี่ยงสำคัญที่นำไปสู่โรคหลอดเลือดสมอง (Stroke) โรคหัวใจขาดเลือด และภาวะไตวายเรื้อรัง มักถูกเรียกว่า "เพชฌฆาตเงียบ" เนื่องจากมักไม่แสดงอาการเตือน', 
+                desc: 'ภาวะแรงดันเลือดที่ผนังหลอดเลือดแดงสูงเกินกว่าค่าปกติ (140/90 mmHg) อย่างต่อเนื่อง มักถูกเรียกว่า "เพชฌฆาตเงียบ"', 
                 symptoms: ['มักไม่แสดงอาการในช่วงแรก', 'ปวดมึนบริเวณท้ายทอยโดยเฉพาะหลังตื่นนอน', 'ตามัว ใจสั่น หรือเหนื่อยง่าย', 'เลือดกำเดาไหลบ่อยผิดปกติ'], 
                 prevention: 'ลดปริมาณโซเดียมในอาหาร (ลดเค็ม) งดสูบบุหรี่และเครื่องดื่มแอลกอฮอล์ จัดการความเครียด และวัดความดันโลหิตสม่ำเสมอ', 
                 videoId: 'QjQ5zRr42NM' 
@@ -411,7 +411,7 @@
                 icon: 'fa-heart-crack', 
                 color: 'text-pink-600', 
                 bg: 'bg-pink-50', 
-                desc: 'ความเสื่อมสภาพของหลอดเลือดที่ส่งเลือดไปเลี้ยงกล้ามเนื้อหัวใจ เกิดจากการสะสมของไขมัน (Plaque) ที่ผนังหลอดเลือดจนทำให้เกิดการตีบตัน ส่งผลให้กล้ามเนื้อหัวใจขาดเลือดเฉียบพลันและอาจนำไปสู่ภาวะหัวใจหยุดเต้นได้', 
+                desc: 'ความเสื่อมสภาพของหลอดเลือดที่ส่งเลือดไปเลี้ยงกล้ามเนื้อหัวใจ เกิดจากการสะสมของไขมัน (Plaque) ที่ผนังหลอดเลือดจนทำให้เกิดการตีบตัน', 
                 symptoms: ['เจ็บแน่นหน้าอกเหมือนมีของหนักทับ', 'ปวดร้าวไปบริเวณไหล่ซ้าย กราม หรือแขน', 'มีอาการเหงื่อแตกตัวเย็นร่วมกับอาการแน่นอก', 'หน้ามืด ใจหวิว หรือคลื่นไส้'], 
                 prevention: 'เลือกรับประทานไขมันชนิดดี เลี่ยงไขมันทรานส์ รักษาระดับคอเลสเตอรอล และออกกำลังกายสไตล์คาร์ดิโออย่างต่อเนื่อง', 
                 videoId: 'D1RHTWcAJOE' 
@@ -423,9 +423,9 @@
                 icon: 'fa-weight-scale', 
                 color: 'text-yellow-600', 
                 bg: 'bg-yellow-50', 
-                desc: 'ภาวะที่มีการสะสมไขมันในช่องท้องมากเกินไป ซึ่งไขมันเหล่านี้จะปล่อยสารที่กระตุ้นการอักเสบทั่วร่างกาย เป็นต้นเหตุสำคัญของการดื้ออินซูลินและเป็นจุดเริ่มต้นของกลุ่มโรค NCDs ทุกชนิดรวมถึงโรคไตและไขมันพอกตับ', 
+                desc: 'ภาวะที่มีการสะสมไขมันในช่องท้องมากเกินไป ซึ่งไขมันเหล่านี้จะปล่อยสารที่กระตุ้นการอักเสบทั่วร่างกาย เป็นต้นเหตุสำคัญของการดื้ออินซูลิน', 
                 symptoms: ['รอบเอวเกินเกณฑ์ (ชาย > 90 ซม., หญิง > 80 ซม.)', 'นอนกรนหรือมีภาวะหยุดหายใจขณะหลับ', 'ปวดเข่าและหลังเนื่องจากรับน้ำหนักมาก', 'เหนื่อยง่ายแม้ทำกิจกรรมเบาๆ'], 
-                prevention: 'ใช้หลัก 3อ. (อาหาร, ออกกำลังกาย, อารมณ์) และ 2ส. (ไม่สูบ, ไม่ดื่ม) เน้นสูักครึ่งจาน ผลไม้และโปรตีนอย่างละส่วน', 
+                prevention: 'ใช้หลัก 3อ. (อาหาร, ออกกำลังกาย, อารมณ์) และ 2ส. (ไม่สูบ, ไม่ดื่ม) เน้นสูตรผักครึ่งจาน ผลไม้และโปรตีนอย่างละส่วน', 
                 videoId: 'tWxSZ3569Oc' 
             }
         ];
@@ -441,27 +441,60 @@
         let state = { current: 0, score: 0 };
         let currentDiseaseTitle = "";
 
-        // Gemini API
-        async function callGemini(prompt, sys = "คุณเป็นผู้เชี่ยวชาญด้านสุขภาพ ตอบสั้น กระชับ เป็นกันเอง") {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const payload = { contents: [{ parts: [{ text: prompt }] }], systemInstruction: { parts: [{ text: sys }] } };
-            try {
-                const response = await fetch(url, { method: 'POST', body: JSON.stringify(payload) });
-                const result = await response.json();
-                return result.candidates?.[0]?.content?.parts?.[0]?.text || "ขออภัยครับ AI ติดขัดบางประการ";
-            } catch (e) { return "เกิดข้อผิดพลาดในการเชื่อมต่อ AI"; }
+        // --- Gemini API Implementation ---
+        async function callGemini(userQuery, systemPrompt = "คุณเป็นผู้เชี่ยวชาญด้านสุขภาพ ตอบสั้น กระชับ เป็นกันเอง") {
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            const retryDelays = [1000, 2000, 4000, 8000, 16000];
+            
+            for (let i = 0; i <= retryDelays.length; i++) {
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text) return text;
+                    throw new Error('No content in response');
+                } catch (e) {
+                    if (i === retryDelays.length) {
+                        return "ขออภัยครับ การเชื่อมต่อ AI มีปัญหา กรุณาลองใหม่ในภายหลัง";
+                    }
+                    await new Promise(resolve => setTimeout(resolve, retryDelays[i]));
+                }
+            }
         }
 
         async function generateAIMenu() {
             const btn = document.getElementById('ai-menu-btn');
+            const originalHtml = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังคิด...';
+            btn.disabled = true;
+
             const prompt = `แนะนำเมนูอาหาร 3 มื้อ สำหรับผู้เสี่ยงหรือเป็นโรค "${currentDiseaseTitle}"`;
-            const result = await callGemini(prompt, "คุณเป็นนักโภชนาการอัจฉริยะ แนะนำเมนูที่อร่อยและดีต่อสุขภาพสั้นๆ");
-            Swal.fire({ title: `✨ เมนูสุขภาพสำหรับ ${currentDiseaseTitle}`, text: result, icon: 'info' });
-            btn.innerHTML = '<i class="fas fa-utensils"></i> <span>ขอเมนูอาหารสุขภาพ AI ✨</span>';
+            const result = await callGemini(prompt, "คุณเป็นนักโภชนาการอัจฉริยะ แนะนำเมนูที่อร่อยและดีต่อสุขภาพสั้นๆ แบ่งเป็น เช้า กลางวัน เย็น");
+            
+            Swal.fire({ 
+                title: `✨ เมนูสุขภาพสำหรับ ${currentDiseaseTitle}`, 
+                html: `<div class="text-left text-sm leading-relaxed">${result.replace(/\n/g, '<br>')}</div>`, 
+                icon: 'info',
+                confirmButtonColor: '#0891b2'
+            });
+            
+            btn.innerHTML = originalHtml;
+            btn.disabled = false;
         }
 
-        // Chatbot
+        // --- Chatbot Logic ---
         async function sendChatMessage() {
             const input = document.getElementById('user-input');
             const text = input.value.trim();
@@ -469,10 +502,14 @@
             const chatMessages = document.getElementById('chat-messages');
             chatMessages.innerHTML += `<div class="message-user">${text}</div>`;
             input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
             const loadingId = 'loading-' + Date.now();
-            chatMessages.innerHTML += `<div class="message-ai" id="${loadingId}">...</div>`;
+            chatMessages.innerHTML += `<div class="message-ai" id="${loadingId}"><i class="fas fa-circle-notch fa-spin"></i> กำลังพิมพ์...</div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
             const response = await callGemini(text);
-            document.getElementById(loadingId).innerText = response;
+            document.getElementById(loadingId).innerHTML = response;
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
@@ -482,7 +519,7 @@
             chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        // Navigation
+        // --- Navigation & Core Logic ---
         function goPage(id) {
             document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
             document.getElementById(`page-${id}`).classList.remove('hidden');
@@ -490,7 +527,6 @@
             window.scrollTo(0,0);
         }
 
-        // Exhibition
         function renderExhibition() {
             const grid = document.getElementById('disease-grid');
             grid.innerHTML = diseases.map(d => `
@@ -519,7 +555,6 @@
 
         function closeModal() { document.getElementById('modal').classList.add('hidden'); document.getElementById('modal-video').src = ''; document.body.style.overflow = ''; }
 
-        // Quiz
         function startQuiz() {
             state = { current: 0, score: 0 };
             document.getElementById('quiz-intro').classList.remove('hidden');
@@ -566,7 +601,6 @@
             }
         }
 
-        // --- ระบบบันทึกข้อมูลและออกเกียรติบัตร ---
         async function submitForm(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-form');
@@ -621,23 +655,19 @@
             if(screenW < certW) {
                 const scale = screenW / certW;
                 wrapper.style.transform = `scale(${scale})`;
-                wrapper.parentElement.style.height = (794 * scale + 100) + 'px';
+                wrapper.parentElement.style.height = (794 * scale + 60) + 'px';
             } else {
                 wrapper.style.transform = 'none';
                 wrapper.parentElement.style.height = 'auto';
             }
         }
 
-        // Verification Check on Load
         window.addEventListener('load', async () => {
             renderExhibition();
             window.addEventListener('resize', scaleCert);
-            
             const params = new URLSearchParams(window.location.search);
             const verifyId = params.get('verify');
-            if(verifyId) {
-                Swal.fire('ระบบตรวจสอบ', `พบข้อมูลเกียรติบัตร รหัส ${verifyId} ในระบบ`, 'success');
-            }
+            if(verifyId) Swal.fire('ระบบตรวจสอบ', `พบข้อมูลเกียรติบัตร รหัส ${verifyId} ในระบบ`, 'success');
         });
     </script>
 </body>

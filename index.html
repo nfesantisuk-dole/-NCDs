@@ -37,7 +37,7 @@
         .hover-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .hover-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(8, 145, 178, 0.2); }
 
-        /* --- Certificate Styling (A4 Landscape Optimization) --- */
+        /* --- Certificate Styling (A4 Landscape Optimized) --- */
         .cert-container {
             width: 1122px; height: 794px; 
             background: white; position: relative;
@@ -377,7 +377,7 @@
     <script>
         // --- ส่วนกำหนดค่า (Configuration) ---
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxmRN5CZlCwhZ4rXrNXNHzT9lsUIZGWbQOZfJ5cbZs4btfBeNiUnjCMXil-sEYG6GxDQ/exec'; 
-        const apiKey = ""; 
+        const apiKey = ""; // Do not add API key here. Environment provides it.
 
         const diseases = [
             { 
@@ -441,30 +441,34 @@
         let state = { current: 0, score: 0 };
         let currentDiseaseTitle = "";
 
-        // Gemini API Implementation with 5 retries backoff
-        async function callGemini(prompt, systemInstruction = "คุณเป็นผู้เชี่ยวชาญด้านสุขภาพ ตอบสั้น กระชับ เป็นกันเอง") {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+        // --- Gemini API Implementation ---
+        async function callGemini(userQuery, systemPrompt = "คุณเป็นผู้เชี่ยวชาญด้านสุขภาพ ตอบสั้น กระชับ เป็นกันเอง") {
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             const payload = {
-                contents: [{ parts: [{ text: prompt }] }],
-                systemInstruction: { parts: [{ text: systemInstruction }] }
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
             };
 
             const retryDelays = [1000, 2000, 4000, 8000, 16000];
             
             for (let i = 0; i <= retryDelays.length; i++) {
                 try {
-                    const response = await fetch(url, {
+                    const response = await fetch(endpoint, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
                     
-                    if (!response.ok) throw new Error('API Error');
+                    if (!response.ok) throw new Error('Network response was not ok');
                     
                     const result = await response.json();
-                    return result.candidates?.[0]?.content?.parts?.[0]?.text || "ไม่พบคำตอบ";
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text) return text;
+                    throw new Error('No content in response');
                 } catch (e) {
-                    if (i === retryDelays.length) return "ขออภัยครับ การเชื่อมต่อ AI มีปัญหา กรุณาลองใหม่ภายหลัง";
+                    if (i === retryDelays.length) {
+                        return "ขออภัยครับ การเชื่อมต่อ AI มีปัญหา กรุณาลองใหม่ในภายหลัง";
+                    }
                     await new Promise(resolve => setTimeout(resolve, retryDelays[i]));
                 }
             }
@@ -477,7 +481,7 @@
             btn.disabled = true;
 
             const prompt = `แนะนำเมนูอาหาร 3 มื้อ สำหรับผู้เสี่ยงหรือเป็นโรค "${currentDiseaseTitle}"`;
-            const result = await callGemini(prompt, "คุณเป็นนักโภชนาการอัจฉริยะ แนะนำเมนูที่อร่อยและดีต่อสุขภาพสั้นๆ");
+            const result = await callGemini(prompt, "คุณเป็นนักโภชนาการอัจฉริยะ แนะนำเมนูที่อร่อยและดีต่อสุขภาพสั้นๆ แบ่งเป็น เช้า กลางวัน เย็น");
             
             Swal.fire({ 
                 title: `✨ เมนูสุขภาพสำหรับ ${currentDiseaseTitle}`, 
@@ -490,7 +494,7 @@
             btn.disabled = false;
         }
 
-        // Chatbot Logic
+        // --- Chatbot Logic ---
         async function sendChatMessage() {
             const input = document.getElementById('user-input');
             const text = input.value.trim();
@@ -515,7 +519,7 @@
             chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        // Navigation & Core Logic
+        // --- Navigation & Core Logic ---
         function goPage(id) {
             document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
             document.getElementById(`page-${id}`).classList.remove('hidden');

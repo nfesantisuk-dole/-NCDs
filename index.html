@@ -377,7 +377,7 @@
     <script>
         // --- ส่วนกำหนดค่า (Configuration) ---
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxmRN5CZlCwhZ4rXrNXNHzT9lsUIZGWbQOZfJ5cbZs4btfBeNiUnjCMXil-sEYG6GxDQ/exec'; 
-        const apiKey = ""; // The environment provides the key at runtime.
+        const apiKey = ""; // API Key will be injected by the environment.
 
         const diseases = [
             { 
@@ -441,37 +441,39 @@
         let state = { current: 0, score: 0 };
         let currentDiseaseTitle = "";
 
-        // --- Optimized Gemini API Implementation with Retries & Grounding ---
+        // --- Improved Gemini API Implementation with Strict Retry Policy ---
         async function callGemini(userQuery, systemPrompt = "คุณเป็นผู้เชี่ยวชาญด้านสุขภาพ ตอบสั้น กระชับ เป็นกันเอง") {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            // Mandated model for text generation in this environment
+            const modelName = "gemini-2.5-flash-preview-09-2025";
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
             
             const payload = {
                 contents: [{ parts: [{ text: userQuery }] }],
                 systemInstruction: { parts: [{ text: systemPrompt }] },
-                tools: [{ "google_search": {} }] // Enable Google Search for up-to-date facts
+                tools: [{ "google_search": {} }] 
             };
 
-            const retryDelays = [1000, 2000, 4000, 8000, 16000];
+            const delays = [1000, 2000, 4000, 8000, 16000]; // 1s, 2s, 4s, 8s, 16s
             
-            for (let i = 0; i <= retryDelays.length; i++) {
+            for (let i = 0; i < delays.length; i++) {
                 try {
-                    const response = await fetch(url, {
+                    const response = await fetch(endpoint, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
                     
-                    if (!response.ok) throw new Error('Network Error');
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
                     
                     const result = await response.json();
                     const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
                     if (text) return text;
-                    throw new Error('Incomplete response');
+                    throw new Error('No content returned');
                 } catch (e) {
-                    if (i === retryDelays.length) {
-                        return "ขออภัยครับ ระบบ AI ขัดข้องชั่วคราว กรุณาลองใหม่ในภายหลัง";
+                    if (i === delays.length - 1) {
+                        return "ขออภัยครับ ระบบ AI ขัดข้องชั่วคราว กรุณาลองใหม่ในภายหลัง (Error: API Unreachable)";
                     }
-                    await new Promise(resolve => setTimeout(resolve, retryDelays[i]));
+                    await new Promise(res => setTimeout(res, delays[i]));
                 }
             }
         }
@@ -482,8 +484,8 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังประมวลผล...';
             btn.disabled = true;
 
-            const prompt = `แนะนำเมนูอาหารสุขภาพ 3 มื้อ (เช้า กลางวัน เย็น) สำหรับผู้เสี่ยงหรือเป็นโรค "${currentDiseaseTitle}" พร้อมสรุปประโยชน์สั้นๆ`;
-            const result = await callGemini(prompt, "คุณเป็นนักโภชนาการอัจฉริยะ ให้คำแนะนำเมนูอาหารสุขภาพสั้นๆ เข้าใจง่าย และถูกต้องตามหลักการแพทย์");
+            const prompt = `แนะนำเมนูอาหารสุขภาพ 3 มื้อ สำหรับผู้เสี่ยงหรือเป็นโรค "${currentDiseaseTitle}"`;
+            const result = await callGemini(prompt, "คุณเป็นนักโภชนาการอัจฉริยะ ให้คำแนะนำเมนูอาหารสุขภาพสั้นๆ เข้าใจง่าย");
             
             Swal.fire({ 
                 title: `✨ เมนูสุขภาพสำหรับ ${currentDiseaseTitle}`, 
@@ -496,11 +498,11 @@
             btn.disabled = false;
         }
 
-        // --- Chatbot UI Logic ---
         async function sendChatMessage() {
             const input = document.getElementById('user-input');
             const text = input.value.trim();
             if (!text) return;
+            
             const chatMessages = document.getElementById('chat-messages');
             chatMessages.innerHTML += `<div class="message-user">${text}</div>`;
             input.value = '';
@@ -521,7 +523,7 @@
             chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        // --- Standard App Functions ---
+        // --- Navigation & Core Functions ---
         function goPage(id) {
             document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
             document.getElementById(`page-${id}`).classList.remove('hidden');
@@ -610,7 +612,7 @@
             const phone = document.getElementById('user-phone').value;
             
             if(!SCRIPT_URL) {
-                Swal.fire('ตั้งค่าระบบ', 'กรุณาใส่ SCRIPT_URL ในส่วนรหัสโปรแกรมก่อนใช้งาน เพื่อเชื่อมต่อ Google Sheet', 'info');
+                Swal.fire('ตั้งค่าระบบ', 'กรุณาใส่ SCRIPT_URL ในส่วนรหัสโปรแกรมก่อนใช้งาน', 'info');
                 return;
             }
 

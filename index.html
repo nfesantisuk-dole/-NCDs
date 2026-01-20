@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>นิทรรศการออนไลน์ NCDs 2026</title>
+    <title>นิทรรศการออนไลน์ NCDs 2026 | สกร.ระดับอำเภอดอยหล่อ</title>
     
     <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,317 +12,258 @@
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --primary: #0891b2; 
             --secondary: #164e63;
+            --accent: #ca8a04;
         }
-        body { font-family: 'Prompt', sans-serif; background-color: #f8fafc; -webkit-tap-highlight-color: transparent; }
+        body { 
+            font-family: 'Prompt', sans-serif; 
+            background-color: #f8fafc; 
+            -webkit-tap-highlight-color: transparent; 
+            scroll-behavior: smooth;
+        }
         
-        /* Animations */
-        .fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .font-sarabun { font-family: 'Sarabun', sans-serif; }
+
+        .fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-        /* Glass Effect */
         .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 
-        /* Card Interactions */
-        .hover-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .hover-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
-        .hover-card:active { transform: scale(0.98); }
+        .hover-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hover-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(8, 145, 178, 0.2); }
 
-        /* Certificate (A4) */
+        /* Certificate Styling (A4 Landscape) */
         .cert-container {
             width: 1122px; height: 794px; 
             background: white; position: relative;
-            margin: 0 auto; box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            margin: 0 auto;
             display: none; color: #1f2937;
             font-family: 'Sarabun', sans-serif;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
         }
         .cert-visible { display: block; }
-        .cert-border-outer { border: 4px solid #164e63; position: absolute; inset: 15px; }
-        .cert-border-inner { border: 2px solid #ca8a04; background-image: radial-gradient(#f0fdfa 1px, transparent 1px); background-size: 24px 24px; position: absolute; inset: 25px; }
+        .cert-bg-pattern {
+            position: absolute; inset: 0; opacity: 0.03; pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='%23164e63'/%3E%3C/svg%3E");
+        }
+        .cert-border-main { position: absolute; inset: 25px; border: 8px double var(--secondary); }
+        .cert-border-gold { position: absolute; inset: 40px; border: 2px solid var(--accent); }
+        .corner { position: absolute; width: 120px; height: 120px; border: 4px solid var(--accent); z-index: 10; }
+        .corner-tl { top: 40px; left: 40px; border-right: none; border-bottom: none; }
+        .corner-tr { top: 40px; right: 40px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: 40px; left: 40px; border-right: none; border-top: none; }
+        .corner-br { bottom: 40px; right: 40px; border-left: none; border-top: none; }
 
         @media print {
             @page { size: landscape; margin: 0; }
             body * { visibility: hidden; }
             #cert-final, #cert-final * { visibility: visible; }
-            #cert-final { position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 9999; margin: 0; transform: none !important; box-shadow: none; }
+            #cert-final { position: fixed; left: 0; top: 0; width: 1122px; height: 794px; z-index: 9999; margin: 0; transform: none !important; box-shadow: none; }
         }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #0891b2 0%, #0369a1 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-gradient:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+        .ai-fab {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 65px; height: 65px;
+            background: linear-gradient(135deg, #0891b2, #164e63);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 24px;
+            cursor: pointer; z-index: 100;
+            box-shadow: 0 10px 25px rgba(8, 145, 178, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .chat-box {
+            position: fixed; bottom: 110px; right: 30px;
+            width: 350px; height: 500px;
+            background: white; border-radius: 24px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            display: none; flex-direction: column;
+            overflow: hidden; z-index: 100;
+            border: 1px solid #e2e8f0;
+        }
+        .chat-header { background: #164e63; color: white; padding: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
+        .chat-input { padding: 15px; border-top: 1px solid #f1f5f9; display: flex; gap: 10px; }
+        .message-user { align-self: flex-end; background: #0891b2; color: white; padding: 10px 15px; border-radius: 15px 15px 0 15px; max-width: 80%; }
+        .message-ai { align-self: flex-start; background: #f1f5f9; color: #1e293b; padding: 10px 15px; border-radius: 15px 15px 15px 0; max-width: 80%; }
     </style>
 </head>
-<body class="text-slate-600 bg-slate-50 selection:bg-cyan-100 selection:text-cyan-800">
+<body class="text-slate-600 bg-slate-50">
+
+    <!-- AI Assistant UI -->
+    <div class="ai-fab" onclick="toggleChat()" title="✨ คุยกับ AI ผู้ช่วยสุขภาพ">
+        <i class="fas fa-robot"></i>
+    </div>
+    
+    <div id="ai-chat" class="chat-box">
+        <div class="chat-header">
+            <span>✨ AI ผู้ช่วยสุขภาพ NCDs</span>
+            <button onclick="toggleChat()"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="message-ai">สวัสดีครับ! ผมเป็น AI ประจำนิทรรศการ สอบถามเรื่องโรค NCDs หรือเมนูอาหารสุขภาพได้เลยครับ ✨</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="พิมพ์คำถามของคุณ..." class="flex-1 outline-none text-sm" onkeypress="handleChatEnter(event)">
+            <button onclick="sendChatMessage()" class="text-cyan-600"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
 
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full glass shadow-sm z-50 border-b border-white/50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-            <div class="flex items-center gap-3 cursor-pointer select-none group" onclick="window.goPage('home')">
-                <div class="w-11 h-11 bg-gradient-to-tr from-cyan-600 to-blue-500 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:shadow-cyan-500/30 transition-all duration-300">
+    <nav class="fixed top-0 w-full glass shadow-sm z-50 border-b border-white/50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer select-none group" onclick="goPage('home')">
+                <div class="w-12 h-12 bg-gradient-to-tr from-cyan-600 to-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-all">
                     <i class="fas fa-heart-pulse text-2xl"></i>
                 </div>
                 <div class="flex flex-col">
-                    <h1 class="font-bold text-xl text-slate-800 leading-tight tracking-tight">NCDs 2026</h1>
-                    <span class="text-[11px] text-cyan-600 font-medium uppercase tracking-wider bg-cyan-50 px-1.5 py-0.5 rounded-md w-fit">Exhibition Online</span>
+                    <h1 class="font-bold text-xl text-slate-800 leading-tight">NCDs <span class="text-cyan-600">2026</span></h1>
+                    <span class="text-[10px] text-cyan-600 font-bold uppercase tracking-widest">Online Exhibition</span>
                 </div>
             </div>
             
-            <div class="hidden md:flex gap-2 bg-slate-100/50 p-1.5 rounded-full border border-slate-200/50">
-                <button onclick="window.goPage('home')" id="nav-home" class="nav-btn px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-slate-500 hover:text-cyan-700">หน้าแรก</button>
-                <button onclick="window.goPage('exhibition')" id="nav-exhibition" class="nav-btn px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-slate-500 hover:text-cyan-700">นิทรรศการ</button>
-                <button onclick="window.goPage('quiz')" id="nav-quiz" class="nav-btn px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-slate-500 hover:text-cyan-700 flex items-center gap-2">
-                    <span>แบบทดสอบ</span> <span class="bg-red-500 text-white text-[10px] px-1.5 rounded-full animate-pulse">New</span>
-                </button>
-            </div>
-
-            <button onclick="window.toggleMobileMenu()" class="md:hidden w-11 h-11 flex items-center justify-center text-slate-600 active:bg-slate-100 rounded-full transition">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
-        </div>
-        
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 shadow-xl absolute w-full left-0 top-20 fade-in">
-            <div class="p-4 space-y-2">
-                <button onclick="window.goPage('home')" class="w-full text-left px-5 py-4 rounded-xl bg-slate-50 hover:bg-cyan-50 font-medium text-slate-700 flex items-center gap-3">
-                    <i class="fas fa-home text-cyan-600 w-6"></i> หน้าแรก
-                </button>
-                <button onclick="window.goPage('exhibition')" class="w-full text-left px-5 py-4 rounded-xl bg-slate-50 hover:bg-cyan-50 font-medium text-slate-700 flex items-center gap-3">
-                    <i class="fas fa-book-open text-cyan-600 w-6"></i> นิทรรศการ
-                </button>
-                <button onclick="window.goPage('quiz')" class="w-full text-left px-5 py-4 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/30 font-bold flex items-center gap-3">
-                    <i class="fas fa-pen-fancy w-6"></i> ทำแบบทดสอบ
-                </button>
+            <div class="hidden md:flex gap-2 bg-slate-100/50 p-1 rounded-full border border-slate-200/50">
+                <button onclick="goPage('home')" id="nav-home" class="nav-btn px-6 py-2 rounded-full text-sm font-semibold transition-all">หน้าแรก</button>
+                <button onclick="goPage('exhibition')" id="nav-exhibition" class="nav-btn px-6 py-2 rounded-full text-sm font-semibold transition-all">นิทรรศการ</button>
+                <button onclick="goPage('quiz')" id="nav-quiz" class="nav-btn px-6 py-2 rounded-full text-sm font-semibold transition-all">ทำแบบทดสอบ</button>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="pt-24 pb-20 px-4 min-h-screen max-w-7xl mx-auto">
-
-        <!-- 1. HOME PAGE -->
-        <section id="page-home" class="page-section fade-in">
-            <div class="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh] lg:min-h-[600px]">
-                <div class="order-2 lg:order-1 text-center lg:text-left space-y-6">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 text-orange-700 rounded-full text-xs font-bold shadow-sm border border-orange-200">
+    <main id="main-content" class="pt-24 min-h-screen">
+        
+        <!-- 1. HOME -->
+        <section id="page-home" class="page-section max-w-7xl mx-auto px-6 py-12 lg:py-24 fade-in">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 text-orange-700 rounded-full text-xs font-bold border border-orange-200 shadow-sm">
                         <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
-                        ONLINE LEARNING 2026
+                        สกร.ระดับอำเภอดอยหล่อ
                     </div>
-                    
-                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-slate-800 leading-[1.15]">
-                        รู้ทัน <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600">ภัยเงียบ</span><br>
-                        ห่างไกล <span class="text-slate-700 decoration-cyan-400/30 underline decoration-4 underline-offset-4">NCDs</span>
+                    <h1 class="text-5xl lg:text-8xl font-bold text-slate-800 leading-[1.1] tracking-tighter">
+                        รู้เท่าทัน<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600">ภัยเงียบ NCDs</span>
                     </h1>
-                    
-                    <p class="text-lg sm:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-light">
-                        ร่วมเรียนรู้สาเหตุ อาการ และวิธีป้องกันกลุ่มโรคไม่ติดต่อเรื้อรัง เพื่อสุขภาพที่ดีของคุณและคนที่คุณรัก พร้อมรับเกียรติบัตรรับรองผ่านระบบออนไลน์ 100%
+                    <p class="text-xl text-slate-500 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+                        โครงการรณรงค์เพื่อสุขภาพที่ดีอย่างยั่งยืน เรียนรู้สาเหตุ อาการ และพฤติกรรมเสี่ยงของกลุ่มโรคไม่ติดต่อเรื้อรัง พร้อมรับเกียรติบัตรทันทีเมื่อผ่านการทดสอบ
                     </p>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                        <button onclick="window.goPage('exhibition')" class="group bg-gradient-to-r from-cyan-600 to-blue-600 text-white px-8 py-4 rounded-full font-bold shadow-xl shadow-cyan-600/20 hover:shadow-cyan-600/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3">
-                            <span>เข้าชมนิทรรศการ</span> 
-                            <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start pt-4">
+                        <button onclick="goPage('exhibition')" class="btn-gradient text-white px-10 py-5 rounded-[2rem] font-bold shadow-2xl shadow-cyan-600/30 flex items-center justify-center gap-4 text-lg">
+                            <span>เข้าชมนิทรรศการ</span>
+                            <i class="fas fa-arrow-right"></i>
                         </button>
-                        <button onclick="window.goPage('quiz')" class="group bg-white text-slate-700 border-2 border-slate-200 px-8 py-4 rounded-full font-bold hover:border-cyan-200 hover:bg-cyan-50 transition-all duration-300 flex items-center justify-center gap-3">
-                            <i class="fas fa-award text-cyan-600 group-hover:scale-110 transition-transform"></i>
-                            <span>ทำแบบทดสอบ</span>
+                        <button onclick="toggleChat()" class="bg-white text-slate-700 border border-slate-200 px-10 py-5 rounded-[2rem] font-bold hover:bg-slate-50 transition shadow-sm flex items-center justify-center gap-4 text-lg">
+                            <i class="fas fa-sparkles text-cyan-600"></i>
+                            <span>คุยกับ AI ✨</span>
                         </button>
-                    </div>
-
-                    <div class="pt-10 grid grid-cols-3 gap-4 border-t border-slate-200/60 mt-8">
-                        <div class="text-center sm:text-left">
-                            <h4 class="text-2xl font-bold text-slate-800">01</h4>
-                            <p class="text-sm text-slate-500 mt-1">ศึกษาข้อมูล<br>ในนิทรรศการ</p>
-                        </div>
-                        <div class="text-center sm:text-left relative">
-                            <div class="hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 w-px h-8 bg-slate-200"></div>
-                            <h4 class="text-2xl font-bold text-slate-800">02</h4>
-                            <p class="text-sm text-slate-500 mt-1">ทำแบบทดสอบ<br>5 ข้อ</p>
-                        </div>
-                        <div class="text-center sm:text-left relative">
-                            <div class="hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 w-px h-8 bg-slate-200"></div>
-                            <h4 class="text-2xl font-bold text-slate-800">03</h4>
-                            <p class="text-sm text-slate-500 mt-1">รับเกียรติบัตร<br>ทันที</p>
-                        </div>
                     </div>
                 </div>
-                
-                <div class="order-1 lg:order-2 flex justify-center relative">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-cyan-200/30 to-blue-200/30 rounded-full filter blur-[100px] opacity-70 animate-pulse"></div>
-                    <div class="relative z-10 w-full max-w-md lg:max-w-full flex items-center justify-center">
-                        <i class="fas fa-heart-pulse text-9xl text-cyan-200 drop-shadow-xl"></i>
+                <div class="relative flex justify-center items-center">
+                    <div class="absolute w-[400px] h-[400px] bg-cyan-200 blur-[100px] opacity-40 rounded-full"></div>
+                    <div class="relative bg-white/40 p-12 rounded-[4rem] border border-white/50 shadow-2xl backdrop-blur-md">
+                        <i class="fas fa-shield-heart text-[150px] text-cyan-600"></i>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. EXHIBITION PAGE -->
-        <section id="page-exhibition" class="page-section hidden">
-            <div class="text-center mb-16 fade-in space-y-4">
-                <span class="text-cyan-600 font-bold tracking-widest text-sm uppercase">Knowledge Base</span>
-                <h2 class="text-4xl md:text-5xl font-bold text-slate-800">ฐานการเรียนรู้โรค <span class="text-cyan-600">NCDs</span></h2>
-                <p class="text-slate-500 max-w-xl mx-auto">คลิกที่บัตรเพื่อดูรายละเอียดเชิงลึก อาการเตือน และชมคลิปวิดีโอแนะนำการป้องกัน</p>
+        <!-- 2. EXHIBITION -->
+        <section id="page-exhibition" class="page-section hidden max-w-7xl mx-auto px-6 py-16">
+            <div class="text-center mb-16 space-y-4 fade-in">
+                <h2 class="text-4xl lg:text-6xl font-bold text-slate-800">ฐานการเรียนรู้โรค NCDs</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto">ศึกษาข้อมูลเชิงวิชาการเพื่อเตรียมความพร้อมสำหรับการทำแบบทดสอบ</p>
             </div>
-            
-            <div id="card-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 fade-in"></div>
-
-            <div class="mt-20 fade-in">
-                <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2.5rem] p-10 md:p-16 text-center text-white relative overflow-hidden shadow-2xl">
-                    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-cyan-500 rounded-full mix-blend-overlay filter blur-3xl opacity-20"></div>
-                    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-500 rounded-full mix-blend-overlay filter blur-3xl opacity-20"></div>
-                    
-                    <div class="relative z-10 max-w-2xl mx-auto space-y-6">
-                        <h3 class="text-3xl font-bold">พร้อมสำหรับการวัดผลหรือยัง?</h3>
-                        <p class="text-slate-300 text-lg">หากคุณศึกษาข้อมูลครบถ้วนแล้ว มาทดสอบความรู้เพื่อรับใบประกาศนียบัตรออนไลน์กันเลย (ต้องผ่านเกณฑ์ 80%)</p>
-                        <button onclick="window.goPage('quiz')" class="bg-white text-slate-900 px-10 py-4 rounded-full font-bold shadow-lg hover:bg-cyan-50 hover:scale-105 transition transform inline-flex items-center gap-2">
-                            <span>เริ่มทำแบบทดสอบ</span>
-                            <i class="fas fa-arrow-right text-cyan-600"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <div id="disease-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 fade-in"></div>
         </section>
 
-        <!-- 3. QUIZ PAGE -->
-        <section id="page-quiz" class="page-section max-w-3xl mx-auto hidden">
-            <div id="quiz-state-active" class="fade-in">
-                <div class="text-center mb-8">
-                    <h2 class="text-3xl font-bold text-slate-800 mb-2">แบบทดสอบวัดผล</h2>
-                    <p class="text-slate-500">ตอบคำถาม 5 ข้อ ให้ถูกต้องอย่างน้อย 4 ข้อ</p>
-                </div>
+        <!-- 3. QUIZ -->
+        <section id="page-quiz" class="page-section hidden max-w-3xl mx-auto px-6 py-16">
+            <div id="quiz-intro" class="text-center mb-12 fade-in">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">แบบทดสอบวัดระดับความรู้</h2>
+                <p class="text-slate-500">ผ่านเกณฑ์ 80% (4 ใน 5 ข้อ) เพื่อรับเกียรติบัตรออนไลน์</p>
+            </div>
 
-                <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100">
-                    <div class="bg-slate-100 h-2 w-full">
-                        <div id="progress-bar" class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 w-0 transition-all duration-500 ease-out"></div>
+            <div id="quiz-card" class="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden fade-in">
+                <div class="h-2 bg-slate-100 w-full"><div id="quiz-progress" class="h-full bg-cyan-600 transition-all duration-700 w-0"></div></div>
+                <div class="p-10 lg:p-14">
+                    <div class="flex justify-between items-center mb-10">
+                        <span class="px-4 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-bold uppercase">ข้อที่ <span id="q-number">1</span>/5</span>
+                        <div class="text-sm font-bold text-slate-400">Score: <span id="current-score" class="text-cyan-600">0</span></div>
                     </div>
-
-                    <div class="p-8 md:p-12">
-                        <div class="flex justify-between items-center mb-8">
-                            <span class="px-4 py-1.5 bg-cyan-100 text-cyan-700 rounded-full text-xs font-bold tracking-wide">QUESTION <span id="q-idx">1</span>/5</span>
-                            <span class="text-sm text-slate-400 font-medium">Score: <span id="score-now" class="text-slate-800 font-bold">0</span></span>
-                        </div>
-
-                        <h3 id="q-txt" class="text-2xl md:text-3xl font-bold text-slate-800 leading-snug mb-10 min-h-[80px]">...</h3>
-                        
-                        <div id="choice-box" class="space-y-4"></div>
-                    </div>
-                    
-                    <div class="bg-slate-50 px-8 py-4 text-center border-t border-slate-100">
-                        <p class="text-xs text-slate-400 font-medium"><i class="fas fa-info-circle mr-1"></i> เลือกคำตอบที่ถูกต้องที่สุดเพียงข้อเดียว</p>
-                    </div>
+                    <h3 id="question-text" class="text-2xl font-bold text-slate-800 leading-snug mb-10 min-h-[80px]">...</h3>
+                    <div id="choices-container" class="grid gap-4"></div>
                 </div>
             </div>
 
-            <div id="quiz-state-pass" class="hidden text-center fade-in py-8">
-                <div class="bg-white p-10 rounded-3xl shadow-2xl border-t-8 border-green-500 relative overflow-hidden max-w-lg mx-auto">
-                    <div class="w-28 h-28 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6 ring-8 ring-green-50/50">
-                        <i class="fas fa-trophy text-5xl text-green-500 drop-shadow-sm"></i>
+            <div id="quiz-result" class="hidden fade-in text-center bg-white p-12 lg:p-20 rounded-[3rem] shadow-2xl border border-slate-100">
+                <div class="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-8 text-4xl"><i class="fas fa-award"></i></div>
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">ผ่านเกณฑ์การทดสอบ!</h2>
+                <p class="text-slate-500 mb-10">คะแนนของคุณคือ <span id="final-score" class="font-bold text-green-600">0</span>/5 คะแนน</p>
+                <form id="cert-form" onsubmit="submitForm(event)" class="text-left space-y-6 max-w-md mx-auto">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 ml-1">ชื่อ-นามสกุล (สำหรับพิมพ์เกียรติบัตร)</label>
+                        <input type="text" id="user-name" required placeholder="ระบุชื่อจริง-นามสกุล..." class="w-full px-6 py-4 rounded-2xl border border-slate-200 focus:ring-4 focus:ring-cyan-500/10 focus:border-cyan-500 outline-none transition-all text-lg font-medium">
                     </div>
-                    
-                    <h2 class="text-3xl font-bold text-slate-800 mb-2">ยินดีด้วย! คุณสอบผ่าน</h2>
-                    <div class="flex justify-center items-center gap-2 mb-8 text-slate-500">
-                        <span>คะแนนของคุณ:</span>
-                        <span class="px-4 py-1 bg-green-100 text-green-700 rounded-lg font-bold text-xl"><span id="final-score"></span>/5</span>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 ml-1">เบอร์โทรศัพท์</label>
+                        <input type="tel" id="user-phone" required placeholder="08XXXXXXXX" class="w-full px-6 py-4 rounded-2xl border border-slate-200 focus:ring-4 focus:ring-cyan-500/10 focus:border-cyan-500 outline-none transition-all text-lg font-medium">
                     </div>
-                    
-                    <form onsubmit="window.submitCertForm(event)" class="text-left space-y-5">
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2 ml-1">ชื่อ-นามสกุล (ภาษาไทย)</label>
-                            <input type="text" id="inp-name" required class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-green-500 focus:ring-4 focus:ring-green-500/10 outline-none transition-all font-medium" placeholder="เช่น นายรักดี มีสุข">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2 ml-1">เบอร์โทรศัพท์</label>
-                            <input type="tel" id="inp-phone" required class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-green-500 focus:ring-4 focus:ring-green-500/10 outline-none transition-all font-medium" placeholder="08xxxxxxxx">
-                        </div>
-                        <button type="submit" id="btn-submit" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-500/20 transition-all transform active:scale-[0.98] mt-4 flex justify-center items-center gap-2">
-                            <span>ยืนยันและรับเกียรติบัตร</span>
-                            <i class="fas fa-file-contract"></i>
-                        </button>
-                    </form>
-                </div>
+                    <button type="submit" id="btn-submit-form" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-5 rounded-2xl font-bold shadow-xl shadow-green-500/30 flex items-center justify-center gap-4 text-xl">
+                        <span>รับเกียรติบัตรและบันทึกข้อมูล</span>
+                        <i class="fas fa-save"></i>
+                    </button>
+                </form>
             </div>
         </section>
-
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 py-12 mt-10 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-center md:text-left">
-            <div>
-                <div class="flex items-center justify-center md:justify-start gap-3 mb-4 text-white">
-                    <i class="fas fa-heart-pulse text-2xl text-cyan-500"></i>
-                    <span class="font-bold text-xl">NCDs 2026</span>
-                </div>
-                <p class="text-sm leading-relaxed text-slate-500">
-                    โครงการรณรงค์ให้ความรู้เรื่องโรคไม่ติดต่อเรื้อรัง มุ่งเน้นการปรับเปลี่ยนพฤติกรรมเพื่อสุขภาพที่ดีอย่างยั่งยืน
-                </p>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">ติดต่อเรา</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><i class="fas fa-map-marker-alt w-5 text-cyan-600"></i>สกร.ระดับอำเภอดอยหล่อ</li>
-                    <li><i class="fas fa-envelope w-5 text-cyan-600"></i>doilow@cmi.nfe.go.th</li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">สนับสนุนโดย</h4>
-                <p class="text-xs text-slate-500">สกร.ระดับอำเภอดอยหล่อ</p>
-            </div>
-        </div>
-        <div class="border-t border-slate-800 mt-10 pt-6 text-center text-xs text-slate-600">
-            &copy; 2026 NCDs Online Exhibition. All rights reserved.
+    <footer class="bg-slate-900 text-slate-500 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-sm tracking-widest">&copy; 2026 นิทรรศการ NCDs ออนไลน์ | สกร.ระดับอำเภอดอยหล่อ</p>
         </div>
     </footer>
 
-    <!-- INFO MODAL -->
-    <div id="modal-info" class="fixed inset-0 z-[100] hidden transition-opacity duration-300">
-        <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm" onclick="window.closeModal()"></div>
+    <!-- MODAL -->
+    <div id="modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-md" onclick="closeModal()"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
-            <div class="bg-white w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] fade-in">
-                
-                <!-- Video Section -->
-                <div class="w-full md:w-7/12 bg-black relative aspect-video md:aspect-auto group">
-                    <iframe id="modal-video" 
-                            class="w-full h-full absolute inset-0" 
-                            src="" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            allowfullscreen
-                            referrerpolicy="no-referrer"></iframe>
-                    <div class="absolute top-4 right-4 md:hidden z-20">
-                         <button onclick="window.closeModal()" class="w-8 h-8 bg-black/50 text-white rounded-full flex items-center justify-center backdrop-blur-md"><i class="fas fa-times"></i></button>
-                    </div>
+            <div class="bg-white w-full max-w-6xl max-h-[90vh] rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row fade-in">
+                <div class="w-full lg:w-3/5 bg-black relative aspect-video lg:aspect-auto">
+                    <iframe id="modal-video" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
                 </div>
-
-                <div class="w-full md:w-5/12 p-6 md:p-8 overflow-y-auto bg-white relative">
-                    <button onclick="window.closeModal()" class="hidden md:flex absolute top-4 right-4 text-slate-300 hover:text-slate-600 transition p-2">
-                        <i class="fas fa-times-circle text-2xl"></i>
-                    </button>
-
-                    <div class="mb-6">
-                        <span class="inline-block px-2 py-1 bg-slate-100 text-slate-500 rounded text-[10px] font-bold uppercase tracking-wider mb-2">Disease Info</span>
-                        <h2 id="modal-title" class="text-2xl font-bold text-slate-800">Title</h2>
+                <div class="w-full lg:w-2/5 p-10 lg:p-12 overflow-y-auto">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <span id="modal-tag" class="text-cyan-600 font-bold text-[10px] uppercase">Tag</span>
+                            <h2 id="modal-title" class="text-3xl font-bold text-slate-800 mt-2">Title</h2>
+                        </div>
+                        <button onclick="closeModal()"><i class="fas fa-times-circle text-3xl text-slate-300"></i></button>
                     </div>
-                    
                     <div class="space-y-6">
+                        <button id="ai-menu-btn" onclick="generateAIMenu()" class="w-full py-3 bg-amber-500 text-white rounded-2xl font-bold shadow-lg flex items-center justify-center gap-3">
+                            <i class="fas fa-utensils"></i> <span>ขอเมนูอาหารสุขภาพ AI ✨</span>
+                        </button>
                         <div>
-                            <h4 class="font-bold text-xs text-slate-400 uppercase mb-2 flex items-center gap-2"><i class="fas fa-align-left"></i> รายละเอียด</h4>
-                            <p id="modal-desc" class="text-sm text-slate-600 leading-relaxed"></p>
+                            <h4 class="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-2"><i class="fas fa-file-medical text-cyan-600"></i> ข้อมูลวิชาการ</h4>
+                            <p id="modal-desc" class="text-slate-600 text-base leading-relaxed font-light"></p>
                         </div>
-                        
-                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-100">
-                            <h4 class="font-bold text-xs text-orange-700 uppercase mb-2 flex items-center gap-2"><i class="fas fa-exclamation-triangle"></i> อาการเตือน</h4>
-                            <ul id="modal-symptoms" class="text-sm text-orange-800 space-y-1 list-disc list-inside"></ul>
-                        </div>
-
-                        <div>
-                            <h4 class="font-bold text-xs text-green-600 uppercase mb-2 flex items-center gap-2"><i class="fas fa-shield-alt"></i> การป้องกัน</h4>
-                            <p id="modal-prev" class="text-sm text-slate-600 bg-green-50/50 p-3 rounded-lg border border-green-100/50"></p>
+                        <div class="bg-orange-50 p-6 rounded-3xl border border-orange-100">
+                            <h4 class="text-xs font-bold text-orange-700 uppercase mb-3">อาการเตือน</h4>
+                            <ul id="modal-symptoms" class="text-orange-800 text-sm space-y-2 list-disc list-inside"></ul>
                         </div>
                     </div>
                 </div>
@@ -330,50 +271,41 @@
         </div>
     </div>
 
-    <!-- CERTIFICATE OVERLAY -->
-    <div id="cert-overlay" class="fixed inset-0 bg-slate-900 z-[200] hidden overflow-y-auto">
-        <div class="min-h-screen flex flex-col items-center justify-center p-4">
-            <div class="text-white text-center mb-8 no-print">
-                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/50">
-                    <i class="fas fa-check text-3xl"></i>
-                </div>
-                <h2 class="text-2xl font-bold">เกียรติบัตรของคุณพร้อมแล้ว!</h2>
-                <div class="flex gap-4 justify-center mt-6">
-                    <button onclick="window.print()" class="bg-white text-slate-900 px-6 py-2.5 rounded-full font-bold text-sm hover:bg-cyan-50 transition shadow-lg flex items-center gap-2">
+    <!-- CERTIFICATE -->
+    <div id="cert-overlay" class="fixed inset-0 bg-slate-900 z-[200] hidden overflow-y-auto no-print">
+        <div class="min-h-screen py-16 px-6 flex flex-col items-center">
+            <div class="mb-12 text-center text-white no-print">
+                <h2 class="text-3xl font-bold mb-4">เกียรติบัตรของคุณพร้อมแล้ว!</h2>
+                <div class="flex gap-4 justify-center">
+                    <button onclick="window.print()" class="bg-white text-slate-900 px-8 py-4 rounded-3xl font-bold shadow-xl flex items-center gap-3">
                         <i class="fas fa-print"></i> พิมพ์ / PDF
                     </button>
-                    <button onclick="location.reload()" class="bg-slate-700 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-slate-600 transition flex items-center gap-2">
-                        <i class="fas fa-times"></i> ปิด
-                    </button>
+                    <button onclick="location.reload()" class="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-3xl font-bold">ปิด</button>
                 </div>
             </div>
-
-            <div id="cert-wrapper" class="origin-top shadow-2xl">
-                <div id="cert-final" class="cert-container cert-visible">
-                    <div class="cert-border-outer"></div>
-                    <div class="cert-border-inner flex flex-col items-center justify-between py-12 px-16 h-full text-center">
-                        <div class="w-full relative pt-4">
-                            <i class="fas fa-heart-circle-check text-6xl text-cyan-900 mb-4"></i>
-                            <h1 class="text-4xl font-bold text-cyan-900 tracking-[0.2em] uppercase">เกียรติบัตรฉบับนี้</h1>
-                            <p class="text-lg text-yellow-600 font-bold mt-2 tracking-widest">CERTIFICATE OF COMPLETION</p>
+            <div id="cert-wrapper" class="origin-top">
+                <div id="cert-final" class="cert-container cert-visible font-sarabun">
+                    <div class="cert-bg-pattern"></div>
+                    <div class="cert-border-main"></div>
+                    <div class="cert-border-gold"></div>
+                    <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+                    <div class="relative z-10 h-full flex flex-col items-center justify-between p-24 text-center">
+                        <div class="space-y-4">
+                            <i class="fas fa-heart-circle-check text-8xl text-[#164e63] mb-4"></i>
+                            <h3 class="text-xl font-bold text-amber-600 tracking-[0.5em] uppercase">Achievement Certificate</h3>
+                            <h1 class="text-5xl font-bold text-[#164e63] mt-4 uppercase">เกียรติบัตรฉบับนี้มอบให้เพื่อแสดงว่า</h1>
                         </div>
-                        <div class="flex-grow flex flex-col justify-center w-full">
-                            <p class="text-xl text-slate-500 mb-4 font-light">มอบให้ไว้เพื่อแสดงว่า</p>
-                            <h2 id="cert-name-display" class="text-[2.8rem] font-bold text-slate-800 leading-tight mb-4 py-2 border-b-2 border-slate-300/50 inline-block px-12 mx-auto min-w-[400px]">ชื่อ-นามสกุล</h2>
-                            <p class="text-2xl text-slate-600">ได้ผ่านการทดสอบวัดระดับความรู้ผ่านระบบออนไลน์</p>
-                            <p class="text-3xl font-bold text-cyan-700 mt-2">"รู้ทันภัยเงียบ โรค NCDs"</p>
+                        <div class="my-6 w-full">
+                            <h2 id="display-name" class="text-[5.5rem] font-bold text-slate-800 leading-none py-4 border-b-2 border-slate-200 inline-block min-w-[650px]">...</h2>
                         </div>
-                        <div class="w-full flex justify-between items-end mt-4 px-4">
-                            <div class="text-left">
-                                <p class="text-[10px] text-slate-400 font-mono tracking-widest mb-1 uppercase">วันที่</p>
-                                <p id="cert-date-display" class="text-lg font-bold text-slate-700 tracking-wider">...</p>
-                            </div>
-                            <div class="text-right">
-                                <div class="bg-white p-1 shadow-md border border-slate-100 mb-2 inline-block">
-                                    <img id="cert-qr" src="" class="w-20 h-20">
-                                </div>
-                                <p id="cert-id-display" class="text-[10px] font-mono font-bold text-cyan-800 uppercase tracking-tighter">REF: NCD-XXXX</p>
-                            </div>
+                        <div class="space-y-4">
+                            <h3 class="text-4xl font-bold text-[#164e63]">ผ่านการทดสอบระบบนิทรรศการออนไลน์ "รู้เท่าทันภัยเงียบ กลุ่มโรค NCDs 2026"</h3>
+                            <p class="text-xl text-slate-400 mt-6 italic">สกร.ระดับอำเภอดอยหล่อ จังหวัดเชียงใหม่</p>
+                        </div>
+                        <div class="w-full flex justify-between items-end mt-10 px-6">
+                            <p id="display-id" class="text-lg font-bold font-mono text-cyan-800">REF: NCD-XXXXX</p>
+                            <img id="display-qr" src="" class="w-24 h-24">
+                            <p id="display-date" class="text-sm font-bold text-slate-800">...</p>
                         </div>
                     </div>
                 </div>
@@ -382,21 +314,24 @@
     </div>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyW3ozha5yR059WqVY0ttIVsllDQtDM5tAixoKVGnwhThHyG-P9g34oLGXBXFdKktKuWA/exec';
+        // --- ส่วนกำหนดค่า (Configuration) ---
+        // 1. ใส่ URL จาก Google Apps Script ที่ Deploy แล้ว
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxmRN5CZlCwhZ4rXrNXNHzT9lsUIZGWbQOZfJ5cbZs4btfBeNiUnjCMXil-sEYG6GxDQ/exec'; 
+        // 2. ใส่ API Key สำหรับ Gemini AI
+        const apiKey = ""; 
 
-        // 1. ปรับปรุงข้อมูล diseases ให้ videoId ถูกต้องและสะอาด
         const diseases = [
             { 
                 id: 1, 
                 title: 'โรคเบาหวาน', 
-                tag: 'Diabetes', 
+                tag: 'Diabetes Mellitus', 
                 icon: 'fa-cubes-stacked', 
                 color: 'text-orange-500', 
                 bg: 'bg-orange-50', 
-                desc: 'ภาวะที่ร่างกายมีระดับน้ำตาลในเลือดสูงกว่าปกติเป็นเวลานาน เกิดจากการขาดฮอร์โมนอินซูลิน หรือดื้อต่ออินซูลิน', 
-                symptoms: ['ปัสสาวะบ่อย', 'กระหายน้ำ', 'น้ำหนักลด', 'แผลหายยาก'], 
-                prevention: 'ลดหวาน มัน เค็ม ควบคุมน้ำหนัก', 
-                videoId: '_x8H1AvgVOU' // ใส่เฉพาะ ID ของวิดีโอ
+                desc: 'ภาวะที่ร่างกายมีระดับน้ำตาลในเลือดสูงกว่าปกติเรื้อรัง เกิดจากความผิดปกติของการผลิตฮอร์โมนอินซูลินจากตับอ่อน หรือร่างกายตอบสนองต่ออินซูลินลดลง (ภาวะดื้ออินซูลิน) ทำให้เกิดการสะสมของน้ำตาลในกระแสเลือดและนำไปสู่ความเสื่อมของหลอดเลือดทั่วร่างกาย', 
+                symptoms: ['ปัสสาวะบ่อยและปริมาณมากผิดปกติ', 'กระหายน้ำบ่อยและคอแห้ง', 'น้ำหนักลดโดยไม่ทราบสาเหตุชัดเจน', 'แผลหายช้าหรือติดเชื้อได้ง่ายขึ้น'], 
+                prevention: 'ควบคุมการบริโภคน้ำตาลและแป้งขัดขาว เน้นใยอาหารจากผัก ออกกำลังกายอย่างน้อย 150 นาทีต่อสัปดาห์ และตรวจเช็กระดับน้ำตาลในเลือดประจำปี', 
+                videoId: '_x8H1AvgVOU' 
             },
             { 
                 id: 2, 
@@ -405,201 +340,245 @@
                 icon: 'fa-heart-circle-bolt', 
                 color: 'text-red-600', 
                 bg: 'bg-red-50', 
-                desc: 'แรงดันเลือดในหลอดเลือดแดงสูงตลอดเวลา เสี่ยงต่อโรคหลอดเลือดสมองและหัวใจล้มเหลว', 
-                symptoms: ['มักไม่มีอาการ', 'ปวดมึนท้ายทอย', 'ตาพร่ามัว', 'ใจสั่น'], 
-                prevention: 'ลดเค็ม งดบุหรี่ และวัดความดันสม่ำเสมอ', 
+                desc: 'ภาวะแรงดันเลือดที่ผนังหลอดเลือดแดงสูงเกินกว่าค่าปกติ (140/90 mmHg) อย่างต่อเนื่อง เป็นปัจจัยเสี่ยงสำคัญที่นำไปสู่โรคหลอดเลือดสมอง (Stroke) โรคหัวใจขาดเลือด และภาวะไตวายเรื้อรัง มักถูกเรียกว่า "เพชฌฆาตเงียบ" เนื่องจากมักไม่แสดงอาการเตือน', 
+                symptoms: ['มักไม่แสดงอาการในช่วงแรก', 'ปวดมึนบริเวณท้ายทอยโดยเฉพาะหลังตื่นนอน', 'ตามัว ใจสั่น หรือเหนื่อยง่าย', 'เลือดกำเดาไหลบ่อยผิดปกติ'], 
+                prevention: 'ลดปริมาณโซเดียมในอาหาร (ลดเค็ม) งดสูบบุหรี่และเครื่องดื่มแอลกอฮอล์ จัดการความเครียด และวัดความดันโลหิตสม่ำเสมอ', 
                 videoId: 'QjQ5zRr42NM' 
             },
             { 
                 id: 3, 
-                title: 'โรคหลอดเลือดหัวใจ', 
-                tag: 'Heart Disease', 
+                title: 'หลอดเลือดหัวใจ', 
+                tag: 'Coronary Artery Disease', 
                 icon: 'fa-heart-crack', 
                 color: 'text-pink-600', 
                 bg: 'bg-pink-50', 
-                desc: 'เกิดจากไขมันเกาะผนังหลอดเลือดหัวใจ ทำให้หลอดเลือดตีบหรือตัน', 
-                symptoms: ['เจ็บแน่นหน้าอก', 'ร้าวไปไหล่ซ้าย', 'เหงื่อออก', 'หน้ามืด'], 
-                prevention: 'เลี่ยงไขมันทรานส์ เพิ่มการกินผัก', 
+                desc: 'ความเสื่อมสภาพของหลอดเลือดที่ส่งเลือดไปเลี้ยงกล้ามเนื้อหัวใจ เกิดจากการสะสมของไขมัน (Plaque) ที่ผนังหลอดเลือดจนทำให้เกิดการตีบตัน ส่งผลให้กล้ามเนื้อหัวใจขาดเลือดเฉียบพลันและอาจนำไปสู่ภาวะหัวใจหยุดเต้นได้', 
+                symptoms: ['เจ็บแน่นหน้าอกเหมือนมีของหนักทับ', 'ปวดร้าวไปบริเวณไหล่ซ้าย กราม หรือแขน', 'มีอาการเหงื่อแตกตัวเย็นร่วมกับอาการแน่นอก', 'หน้ามืด ใจหวิว หรือคลื่นไส้'], 
+                prevention: 'เลือกรับประทานไขมันชนิดดี เลี่ยงไขมันทรานส์ รักษาระดับคอเลสเตอรอล และออกกำลังกายสไตล์คาร์ดิโออย่างต่อเนื่อง', 
                 videoId: 'D1RHTWcAJOE' 
             },
             { 
                 id: 4, 
                 title: 'โรคอ้วนลงพุง', 
-                tag: 'Obesity', 
+                tag: 'Metabolic Syndrome', 
                 icon: 'fa-weight-scale', 
                 color: 'text-yellow-600', 
                 bg: 'bg-yellow-50', 
-                desc: 'ภาวะที่มีไขมันสะสมในช่องท้องมากเกินไป เป็นต้นตอของโรค NCDs อื่นๆ', 
-                symptoms: ['รอบเอวเกินเกณฑ์', 'เหนื่อยง่าย', 'นอนกรน'], 
-                prevention: 'หลัก 3อ. 2ส. จำกัดน้ำตาล', 
+                desc: 'ภาวะที่มีการสะสมไขมันในช่องท้องมากเกินไป ซึ่งไขมันเหล่านี้จะปล่อยสารที่กระตุ้นการอักเสบทั่วร่างกาย เป็นต้นเหตุสำคัญของการดื้ออินซูลินและเป็นจุดเริ่มต้นของกลุ่มโรค NCDs ทุกชนิดรวมถึงโรคไตและไขมันพอกตับ', 
+                symptoms: ['รอบเอวเกินเกณฑ์ (ชาย > 90 ซม., หญิง > 80 ซม.)', 'นอนกรนหรือมีภาวะหยุดหายใจขณะหลับ', 'ปวดเข่าและหลังเนื่องจากรับน้ำหนักมาก', 'เหนื่อยง่ายแม้ทำกิจกรรมเบาๆ'], 
+                prevention: 'ใช้หลัก 3อ. (อาหาร, ออกกำลังกาย, อารมณ์) และ 2ส. (ไม่สูบ, ไม่ดื่ม) เน้นสูตรผักครึ่งจาน ผลไม้และโปรตีนอย่างละส่วน', 
                 videoId: 'tWxSZ3569Oc' 
             }
         ];
 
         const questions = [
-            {q:"NCDs คือกลุ่มโรคที่เกิดจากสาเหตุใดเป็นหลัก?", c:["การติดเชื้อแบคทีเรีย", "พฤติกรรมการใช้ชีวิต", "พันธุกรรม 100%"], a:1},
-            {q:"ข้อใด 'ไม่ใช่' หลักในการป้องกันโรค NCDs?", c:["ออกกำลังกายสม่ำเสมอ", "กินอาหารรสจัดเพื่อกระตุ้นระบบ", "งดสูบบุหรี่และสุรา"], a:1},
-            {q:"ค่าความดันโลหิตปกติ ควรอยู่ที่ประมาณเท่าใด?", c:["120/80 mmHg", "150/100 mmHg", "90/50 mmHg"], a:0},
-            {q:"อาการ 'เจ็บแน่นหน้าอก ร้าวไปไหล่ซ้าย' เป็นสัญญาณเตือนของโรคใด?", c:["โรคกระเพาะอาหาร", "โรคหลอดเลือดหัวใจ", "โรคไตเสื่อม"], a:1},
-            {q:"รอบเอวปกติของผู้หญิงไทย ไม่ควรเกินกี่เซนติเมตร?", c:["60 ซม.", "80 ซม.", "100 ซม."], a:1}
+            { q: "NCDs ย่อมาจากกลุ่มโรคประเภทใด?", c: ["โรคติดต่อ", "โรคไม่ติดต่อเรื้อรัง", "โรคอุบัติใหม่"], a: 1 },
+            { q: "อาการหิวน้ำบ่อย แผลหายช้า เสี่ยงต่อโรคใด?", c: ["เบาหวาน", "ความดัน", "หัวใจ"], a: 0 },
+            { q: "พฤติกรรมใดช่วยลดเสี่ยงความดันสูง?", c: ["ทานอาหารรสจัด", "ลดโซเดียม งดบุหรี่", "นอนน้อย"], a: 1 },
+            { q: "แน่นหน้าอกร้าวไปแขนซ้าย สื่อถึงโรคใด?", c: ["โรคปอด", "หลอดเลือดหัวใจ", "โรคไต"], a: 1 },
+            { q: "รอบเอวอ้วนลงพุงหญิงไทยคือเท่าใด?", c: ["เกิน 60ซม", "เกิน 80ซม", "เกิน 90ซม"], a: 1 }
         ];
 
-        let state = { score: 0, currentQ: 0 };
+        let state = { current: 0, score: 0 };
+        let currentDiseaseTitle = "";
 
-        window.goPage = function(pageId) {
-            document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
-            const target = document.getElementById(`page-${pageId}`);
-            if(target) target.classList.remove('hidden');
-            document.getElementById('mobile-menu').classList.add('hidden');
-            if(pageId === 'quiz') startQuiz();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-
-        window.toggleMobileMenu = function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        };
-
-        // 2. ปรับปรุงฟังก์ชัน openModal ให้รองรับปุ่ม YouTube Link
-        window.openModal = function(id) {
-            const d = diseases.find(x => x.id === id);
-            if(!d) return;
-
-            // ใส่ข้อมูล Text
-            document.getElementById('modal-title').innerText = d.title;
-            document.getElementById('modal-desc').innerText = d.desc;
-            document.getElementById('modal-prev').innerText = d.prevention;
-            document.getElementById('modal-symptoms').innerHTML = d.symptoms.map(s => `<li>${s}</li>`).join('');
-            
-            // ใส่ข้อมูล Video (Embed)
-            const embedUrl = `https://www.youtube.com/embed/${d.videoId}?autoplay=1&rel=0&modestbranding=1`;
-            document.getElementById('modal-video').src = embedUrl;
-
-            // ใส่ข้อมูล Link ปุ่มกดไปดู YouTube (เพิ่มใหม่)
-            const ytLink = document.getElementById('modal-yt-link');
-            if(ytLink) {
-                ytLink.href = `https://www.youtube.com/watch?v=${d.videoId}`;
-            }
-            
-            document.getElementById('modal-info').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        };
-
-        // 3. ปรับปรุงฟังก์ชัน closeModal ให้หยุดวิดีโอทันทีที่ปิด
-        window.closeModal = function() {
-            document.getElementById('modal-info').classList.add('hidden');
-            // ล้าง src ออกเพื่อให้เสียงหยุดเล่นทันที
-            document.getElementById('modal-video').src = "";
-            document.body.style.overflow = '';
-        };
-
-        window.answer = function(choiceIdx, btn) {
-            if(btn.disabled) return;
-            const allBtns = document.getElementById('choice-box').children;
-            for(let b of allBtns) b.disabled = true;
-
-            const isCorrect = choiceIdx === questions[state.currentQ].a;
-            if(isCorrect) {
-                state.score++;
-                btn.classList.add('bg-green-50', 'border-green-500', 'text-green-800');
-            } else {
-                btn.classList.add('bg-red-50', 'border-red-500', 'text-red-800');
-            }
-            document.getElementById('score-now').innerText = state.score;
-            setTimeout(() => {
-                state.currentQ++;
-                (state.currentQ < questions.length) ? renderQuestion() : finishQuiz();
-            }, 800);
-        };
-
-        window.submitCertForm = async function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('btn-submit');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> บันทึกข้อมูล...';
-            const payload = {
-                name: document.getElementById('inp-name').value,
-                phone: document.getElementById('inp-phone').value,
-                score: state.score
-            };
+        // Gemini API
+        async function callGemini(prompt, sys = "คุณเป็นผู้เชี่ยวชาญด้านสุขภาพ ตอบสั้น กระชับ เป็นกันเอง") {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = { contents: [{ parts: [{ text: prompt }] }], systemInstruction: { parts: [{ text: sys }] } };
             try {
-                const res = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
-                const data = await res.json();
-                if(data.status === 'success') {
-                    document.getElementById('cert-name-display').innerText = payload.name;
-                    document.getElementById('cert-id-display').innerText = data.certId;
-                    document.getElementById('cert-date-display').innerText = data.date;
-                    document.getElementById('cert-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(data.certId)}`;
-                    document.getElementById('cert-overlay').classList.remove('hidden');
-                    scaleCert();
-                }
-            } catch(err) {
-                Swal.fire('ข้อผิดพลาด', 'ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้ในขณะนี้', 'error');
-                btn.disabled = false; btn.innerHTML = 'ยืนยันและรับเกียรติบัตร';
-            }
-        };
+                const response = await fetch(url, { method: 'POST', body: JSON.stringify(payload) });
+                const result = await response.json();
+                return result.candidates?.[0]?.content?.parts?.[0]?.text || "ขออภัยครับ AI ติดขัดบางประการ";
+            } catch (e) { return "เกิดข้อผิดพลาดในการเชื่อมต่อ AI"; }
+        }
 
+        async function generateAIMenu() {
+            const btn = document.getElementById('ai-menu-btn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังคิด...';
+            const prompt = `แนะนำเมนูอาหาร 3 มื้อ สำหรับผู้เสี่ยงหรือเป็นโรค "${currentDiseaseTitle}"`;
+            const result = await callGemini(prompt, "คุณเป็นนักโภชนาการอัจฉริยะ แนะนำเมนูที่อร่อยและดีต่อสุขภาพสั้นๆ");
+            Swal.fire({ title: `✨ เมนูสุขภาพสำหรับ ${currentDiseaseTitle}`, text: result, icon: 'info' });
+            btn.innerHTML = '<i class="fas fa-utensils"></i> <span>ขอเมนูอาหารสุขภาพ AI ✨</span>';
+        }
+
+        // Chatbot
+        async function sendChatMessage() {
+            const input = document.getElementById('user-input');
+            const text = input.value.trim();
+            if (!text) return;
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML += `<div class="message-user">${text}</div>`;
+            input.value = '';
+            const loadingId = 'loading-' + Date.now();
+            chatMessages.innerHTML += `<div class="message-ai" id="${loadingId}">...</div>`;
+            const response = await callGemini(text);
+            document.getElementById(loadingId).innerText = response;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleChatEnter(e) { if (e.key === 'Enter') sendChatMessage(); }
+        function toggleChat() { 
+            const chat = document.getElementById('ai-chat');
+            chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Navigation
+        function goPage(id) {
+            document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`page-${id}`).classList.remove('hidden');
+            if (id === 'quiz') startQuiz();
+            window.scrollTo(0,0);
+        }
+
+        // Exhibition
         function renderExhibition() {
-            const container = document.getElementById('card-container');
-            container.innerHTML = diseases.map(d => `
-                <div onclick="window.openModal(${d.id})" class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 hover-card group cursor-pointer flex flex-col justify-between">
+            const grid = document.getElementById('disease-grid');
+            grid.innerHTML = diseases.map(d => `
+                <div onclick="openModal(${d.id})" class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 hover-card group cursor-pointer h-full flex flex-col justify-between">
                     <div>
-                        <div class="w-16 h-16 ${d.bg} ${d.color} rounded-2xl flex items-center justify-center text-2xl mb-6"><i class="fas ${d.icon}"></i></div>
-                        <h3 class="font-bold text-xl text-slate-800 mb-1">${d.title}</h3>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-2">${d.tag}</p>
-                        <p class="text-sm text-slate-500 leading-relaxed line-clamp-2">${d.desc}</p>
+                        <div class="w-16 h-16 ${d.bg} ${d.color} rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-inner"><i class="fas ${d.icon}"></i></div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">${d.title}</h3>
+                        <p class="text-[10px] font-bold text-slate-400 mb-4 uppercase tracking-widest">${d.tag}</p>
+                        <p class="text-sm text-slate-500 line-clamp-3 leading-relaxed font-light">${d.desc}</p>
                     </div>
-                    <div class="mt-6 flex items-center text-xs font-bold text-cyan-600 uppercase">รายละเอียดเพิ่มเติม <i class="fas fa-arrow-right ml-2"></i></div>
                 </div>
             `).join('');
         }
 
+        function openModal(id) {
+            const d = diseases.find(x => x.id === id);
+            currentDiseaseTitle = d.title;
+            document.getElementById('modal-tag').innerText = d.tag;
+            document.getElementById('modal-title').innerText = d.title;
+            document.getElementById('modal-desc').innerText = d.desc;
+            document.getElementById('modal-symptoms').innerHTML = d.symptoms.map(s => `<li>${s}</li>`).join('');
+            document.getElementById('modal-video').src = `https://www.youtube.com/embed/${d.videoId}?autoplay=1&rel=0&modestbranding=1`;
+            document.getElementById('modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() { document.getElementById('modal').classList.add('hidden'); document.getElementById('modal-video').src = ''; document.body.style.overflow = ''; }
+
+        // Quiz
         function startQuiz() {
-            state.score = 0; state.currentQ = 0;
-            document.getElementById('quiz-state-active').classList.remove('hidden');
-            document.getElementById('quiz-state-pass').classList.add('hidden');
+            state = { current: 0, score: 0 };
+            document.getElementById('quiz-intro').classList.remove('hidden');
+            document.getElementById('quiz-card').classList.remove('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
             renderQuestion();
         }
 
         function renderQuestion() {
-            const q = questions[state.currentQ];
-            document.getElementById('q-idx').innerText = state.currentQ + 1;
-            document.getElementById('q-txt').innerText = q.q;
-            document.getElementById('progress-bar').style.width = `${(state.currentQ / questions.length) * 100}%`;
-            document.getElementById('choice-box').innerHTML = q.c.map((c, i) => `
-                <button onclick="window.answer(${i}, this)" class="w-full text-left px-6 py-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition-all font-medium">${c}</button>
+            const q = questions[state.current];
+            document.getElementById('q-number').innerText = state.current + 1;
+            document.getElementById('current-score').innerText = state.score;
+            document.getElementById('question-text').innerText = q.q;
+            document.getElementById('quiz-progress').style.width = `${(state.current / questions.length) * 100}%`;
+            document.getElementById('choices-container').innerHTML = q.c.map((c, i) => `
+                <button onclick="handleAnswer(${i}, this)" class="w-full text-left px-8 py-5 rounded-2xl border-2 border-slate-100 hover:border-cyan-500 hover:bg-cyan-50 transition-all font-bold text-slate-700">${c}</button>
             `).join('');
         }
 
-        function finishQuiz() {
-            document.getElementById('progress-bar').style.width = '100%';
-            document.getElementById('quiz-state-active').classList.add('hidden');
-            if(state.score >= 4) {
-                document.getElementById('quiz-state-pass').classList.remove('hidden');
-                document.getElementById('final-score').innerText = state.score;
+        function handleAnswer(idx, btn) {
+            const btns = document.querySelectorAll('#choices-container button');
+            btns.forEach(b => b.disabled = true);
+            if (idx === questions[state.current].a) {
+                state.score++;
+                btn.classList.add('border-green-500', 'bg-green-50', 'text-green-800');
             } else {
-                Swal.fire('ยังไม่ผ่านเกณฑ์', `ได้ ${state.score}/5 คะแนน พยายามอีกนิดนะ!`, 'warning').then(startQuiz);
+                btn.classList.add('border-red-500', 'bg-red-50', 'text-red-800');
             }
+            setTimeout(() => {
+                state.current++;
+                if (state.current < questions.length) renderQuestion();
+                else finishQuiz();
+            }, 600);
+        }
+
+        function finishQuiz() {
+            document.getElementById('quiz-progress').style.width = `100%`;
+            document.getElementById('quiz-intro').classList.add('hidden');
+            document.getElementById('quiz-card').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+            document.getElementById('final-score').innerText = state.score;
+            if(state.score < 4) {
+                Swal.fire('พยายามอีกนิด!', `คุณได้ ${state.score}/5 คะแนน ต้องได้ 4 คะแนนขึ้นไปจึงจะได้รับเกียรติบัตร`, 'warning').then(startQuiz);
+            }
+        }
+
+        // --- ระบบบันทึกข้อมูลและออกเกียรติบัตร ---
+        async function submitForm(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-form');
+            const name = document.getElementById('user-name').value;
+            const phone = document.getElementById('user-phone').value;
+            
+            if(!SCRIPT_URL) {
+                Swal.fire('ตั้งค่าระบบ', 'กรุณาใส่ SCRIPT_URL ในส่วนรหัสโปรแกรมก่อนใช้งาน เพื่อเชื่อมต่อ Google Sheet', 'info');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึกข้อมูล...';
+
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ name, phone, score: state.score })
+                });
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    showCert(name, data.certId, data.date);
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (err) {
+                Swal.fire('ข้อผิดพลาด', 'ไม่สามารถบันทึกข้อมูลได้: ' + err.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'รับเกียรติบัตรและบันทึกข้อมูล <i class="fas fa-save"></i>';
+            }
+        }
+
+        function showCert(name, id, date) {
+            document.getElementById('display-name').innerText = name;
+            document.getElementById('display-id').innerText = `REF: ${id}`;
+            document.getElementById('display-date').innerText = date;
+            
+            // สร้างลิงก์ QR Code สำหรับตรวจสอบกลับมาที่หน้านี้ (Verify System)
+            const verifyLink = window.location.origin + window.location.pathname + '?verify=' + id;
+            document.getElementById('display-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyLink)}`;
+            
+            document.getElementById('cert-overlay').classList.remove('hidden');
+            scaleCert();
         }
 
         function scaleCert() {
             const wrapper = document.getElementById('cert-wrapper');
-            const screenW = window.innerWidth - 30;
+            const screenW = window.innerWidth - 64;
             const certW = 1122;
             if(screenW < certW) {
                 const scale = screenW / certW;
                 wrapper.style.transform = `scale(${scale})`;
-                wrapper.style.height = (794 * scale) + 'px';
-                wrapper.style.width = screenW + 'px';
+                wrapper.parentElement.style.height = (794 * scale + 100) + 'px';
             } else {
                 wrapper.style.transform = 'none';
-                wrapper.style.height = '794px';
-                wrapper.style.width = '1122px';
+                wrapper.parentElement.style.height = 'auto';
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        // Verification Check on Load
+        window.addEventListener('load', async () => {
             renderExhibition();
             window.addEventListener('resize', scaleCert);
+            
+            const params = new URLSearchParams(window.location.search);
+            const verifyId = params.get('verify');
+            if(verifyId) {
+                Swal.fire('ระบบตรวจสอบ', `พบข้อมูลเกียรติบัตร รหัส ${verifyId} ในระบบ`, 'success');
+            }
         });
     </script>
 </body>

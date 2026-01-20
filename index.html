@@ -62,11 +62,45 @@
 
         @media print {
             @page { size: landscape; margin: 0; }
-            html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: white !important; }
+            html, body { 
+                margin: 0 !important; 
+                padding: 0 !important; 
+                width: 100% !important; 
+                height: 100vh !important; 
+                overflow: hidden !important; 
+                background: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
             .no-print { display: none !important; }
-            #cert-overlay { background: white !important; position: absolute; inset: 0; z-index: 9999; display: block !important; overflow: hidden !important; }
-            #cert-wrapper { transform: scale(0.98) !important; transform-origin: top center !important; margin: 0 auto !important; position: relative; border: none !important; box-shadow: none !important; }
-            #cert-final { display: block !important; position: relative; box-shadow: none !important; border: none !important; margin: 0 auto !important; }
+            #cert-overlay { 
+                background: white !important; 
+                position: fixed !important; 
+                inset: 0 !important; 
+                z-index: 9999 !important; 
+                display: block !important; 
+                overflow: hidden !important; 
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            #cert-wrapper { 
+                transform: scale(1) !important; 
+                margin: 0 auto !important; 
+                position: relative !important; 
+                border: none !important; 
+                box-shadow: none !important;
+                width: 1122px !important;
+                height: 794px !important;
+            }
+            #cert-final { 
+                display: block !important; 
+                position: relative !important; 
+                box-shadow: none !important; 
+                border: none !important; 
+                margin: 0 !important;
+                width: 1122px !important;
+                height: 794px !important;
+            }
         }
 
         .btn-gradient {
@@ -292,46 +326,46 @@
                     <div class="cert-border-gold"></div>
                     <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
                     
-                    <div class="relative z-10 h-full flex flex-col items-center justify-between p-16 text-center">
+                    <div class="relative z-10 h-full flex flex-col items-center justify-between p-12 text-center">
                         <!-- Header Section -->
-                        <div class="space-y-3">
-                            <i class="fas fa-heart-circle-check text-7xl text-[#164e63] mb-2"></i>
-                            <h3 class="text-sm font-bold text-amber-600 tracking-[0.4em] uppercase">Knowledge Achievement</h3>
-                            <h1 class="text-3xl font-bold tracking-[0.1em] text-[#164e63] mt-2 uppercase">เกียรติบัตรฉบับนี้มอบให้เพื่อแสดงว่า</h1>
+                        <div class="space-y-2 mt-4">
+                            <i class="fas fa-heart-circle-check text-6xl text-[#164e63] mb-2"></i>
+                            <h3 class="text-xs font-bold text-amber-600 tracking-[0.4em] uppercase">Knowledge Achievement</h3>
+                            <h1 class="text-2xl font-bold tracking-[0.1em] text-[#164e63] mt-1 uppercase">เกียรติบัตรฉบับนี้มอบให้เพื่อแสดงว่า</h1>
                         </div>
 
                         <!-- Recipient Name -->
-                        <div class="my-4 w-full">
-                            <h2 id="display-name" class="text-5xl font-bold text-slate-800 leading-none py-4 border-b-2 border-slate-200 inline-block min-w-[500px]">...</h2>
+                        <div class="my-2 w-full">
+                            <h2 id="display-name" class="text-4xl font-bold text-slate-800 leading-none py-3 border-b-2 border-slate-200 inline-block min-w-[450px]">...</h2>
                         </div>
 
                         <!-- Description Section -->
-                        <div class="space-y-3">
-                            <p class="text-lg text-slate-500 font-medium">ได้ผ่านการทดสอบระบบนิทรรศการออนไลน์</p>
-                            <h3 class="text-2xl font-bold text-[#164e63] tracking-tight">"รู้เท่าทันภัยเงียบ กลุ่มโรค NCDs 2026"</h3>
-                            <p class="text-base text-slate-400 mt-4 italic">สกร.ระดับอำเภอดอยหล่อ จังหวัดเชียงใหม่</p>
+                        <div class="space-y-2">
+                            <p class="text-base text-slate-500 font-medium">ได้ผ่านการทดสอบระบบนิทรรศการออนไลน์</p>
+                            <h3 class="text-xl font-bold text-[#164e63] tracking-tight">"รู้เท่าทันภัยเงียบ กลุ่มโรค NCDs 2026"</h3>
+                            <p class="text-sm text-slate-400 mt-2 italic">สกร.ระดับอำเภอดอยหล่อ จังหวัดเชียงใหม่</p>
                         </div>
 
                         <!-- Footer Section -->
-                        <div class="w-full grid grid-cols-3 items-end mt-6 px-12">
+                        <div class="w-full grid grid-cols-3 items-end mb-6 px-16">
                             <div class="text-left">
-                                <p class="text-[9px] text-slate-400 font-mono tracking-widest uppercase mb-1">Validation No.</p>
-                                <p id="display-id" class="text-base font-bold font-mono text-cyan-800">REF: NCD-XXXXX</p>
+                                <p class="text-[8px] text-slate-400 font-mono tracking-widest uppercase mb-1">Validation No.</p>
+                                <p id="display-id" class="text-sm font-bold font-mono text-cyan-800">REF: NCD-XXXXX</p>
                             </div>
                             
                             <div class="flex flex-col items-center">
-                                <div class="w-20 h-20 rounded-full border-4 border-[#164e63]/10 flex items-center justify-center relative">
-                                    <p class="text-[8px] font-bold text-[#164e63] text-center leading-tight">OFFICIALLY<br>VERIFIED</p>
+                                <div class="w-16 h-16 rounded-full border-2 border-[#164e63]/10 flex items-center justify-center relative">
+                                    <p class="text-[7px] font-bold text-[#164e63] text-center leading-tight">OFFICIALLY<br>VERIFIED</p>
                                 </div>
-                                <p class="text-[8px] font-bold text-slate-400 mt-2 uppercase tracking-[0.1em]">Digital Authentication</p>
+                                <p class="text-[7px] font-bold text-slate-400 mt-1 uppercase tracking-[0.1em]">Digital Authentication</p>
                             </div>
 
                             <div class="text-right flex flex-col items-end">
-                                <div class="bg-white p-2 border border-slate-100 mb-1 inline-block">
-                                    <img id="display-qr" src="" class="w-20 h-20">
+                                <div class="bg-white p-1.5 border border-slate-100 mb-1 inline-block">
+                                    <img id="display-qr" src="" class="w-16 h-16">
                                 </div>
-                                <p class="text-[9px] text-slate-400 font-mono uppercase mb-1">Issued Date</p>
-                                <p id="display-date" class="text-sm font-bold text-slate-800">...</p>
+                                <p class="text-[8px] text-slate-400 font-mono uppercase mb-0.5">Issued Date</p>
+                                <p id="display-date" class="text-xs font-bold text-slate-800">...</p>
                             </div>
                         </div>
                     </div>
@@ -391,7 +425,7 @@
                 bg: 'bg-yellow-50', 
                 desc: 'ภาวะที่มีการสะสมไขมันในช่องท้องมากเกินไป ซึ่งไขมันเหล่านี้จะปล่อยสารที่กระตุ้นการอักเสบทั่วร่างกาย เป็นต้นเหตุสำคัญของการดื้ออินซูลินและเป็นจุดเริ่มต้นของกลุ่มโรค NCDs ทุกชนิดรวมถึงโรคไตและไขมันพอกตับ', 
                 symptoms: ['รอบเอวเกินเกณฑ์ (ชาย > 90 ซม., หญิง > 80 ซม.)', 'นอนกรนหรือมีภาวะหยุดหายใจขณะหลับ', 'ปวดเข่าและหลังเนื่องจากรับน้ำหนักมาก', 'เหนื่อยง่ายแม้ทำกิจกรรมเบาๆ'], 
-                prevention: 'ใช้หลัก 3อ. (อาหาร, ออกกำลังกาย, อารมณ์) และ 2ส. (ไม่สูบ, ไม่ดื่ม) เน้นสูตรผักครึ่งจาน ผลไม้และโปรตีนอย่างละส่วน', 
+                prevention: 'ใช้หลัก 3อ. (อาหาร, ออกกำลังกาย, อารมณ์) และ 2ส. (ไม่สูบ, ไม่ดื่ม) เน้นสูักครึ่งจาน ผลไม้และโปรตีนอย่างละส่วน', 
                 videoId: 'tWxSZ3569Oc' 
             }
         ];

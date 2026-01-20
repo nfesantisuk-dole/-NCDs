@@ -377,7 +377,7 @@
     <script>
         // --- ส่วนกำหนดค่า (Configuration) ---
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxmRN5CZlCwhZ4rXrNXNHzT9lsUIZGWbQOZfJ5cbZs4btfBeNiUnjCMXil-sEYG6GxDQ/exec'; 
-        const apiKey = ""; // Do not add API key here. Environment provides it.
+        const apiKey = ""; // The environment provides the key at runtime.
 
         const diseases = [
             { 
@@ -441,33 +441,35 @@
         let state = { current: 0, score: 0 };
         let currentDiseaseTitle = "";
 
-        // --- Gemini API Implementation ---
+        // --- Optimized Gemini API Implementation with Retries & Grounding ---
         async function callGemini(userQuery, systemPrompt = "คุณเป็นผู้เชี่ยวชาญด้านสุขภาพ ตอบสั้น กระชับ เป็นกันเอง") {
-            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
             const payload = {
                 contents: [{ parts: [{ text: userQuery }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] }
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                tools: [{ "google_search": {} }] // Enable Google Search for up-to-date facts
             };
 
             const retryDelays = [1000, 2000, 4000, 8000, 16000];
             
             for (let i = 0; i <= retryDelays.length; i++) {
                 try {
-                    const response = await fetch(endpoint, {
+                    const response = await fetch(url, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
                     
-                    if (!response.ok) throw new Error('Network response was not ok');
+                    if (!response.ok) throw new Error('Network Error');
                     
                     const result = await response.json();
                     const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
                     if (text) return text;
-                    throw new Error('No content in response');
+                    throw new Error('Incomplete response');
                 } catch (e) {
                     if (i === retryDelays.length) {
-                        return "ขออภัยครับ การเชื่อมต่อ AI มีปัญหา กรุณาลองใหม่ในภายหลัง";
+                        return "ขออภัยครับ ระบบ AI ขัดข้องชั่วคราว กรุณาลองใหม่ในภายหลัง";
                     }
                     await new Promise(resolve => setTimeout(resolve, retryDelays[i]));
                 }
@@ -477,11 +479,11 @@
         async function generateAIMenu() {
             const btn = document.getElementById('ai-menu-btn');
             const originalHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังคิด...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังประมวลผล...';
             btn.disabled = true;
 
-            const prompt = `แนะนำเมนูอาหาร 3 มื้อ สำหรับผู้เสี่ยงหรือเป็นโรค "${currentDiseaseTitle}"`;
-            const result = await callGemini(prompt, "คุณเป็นนักโภชนาการอัจฉริยะ แนะนำเมนูที่อร่อยและดีต่อสุขภาพสั้นๆ แบ่งเป็น เช้า กลางวัน เย็น");
+            const prompt = `แนะนำเมนูอาหารสุขภาพ 3 มื้อ (เช้า กลางวัน เย็น) สำหรับผู้เสี่ยงหรือเป็นโรค "${currentDiseaseTitle}" พร้อมสรุปประโยชน์สั้นๆ`;
+            const result = await callGemini(prompt, "คุณเป็นนักโภชนาการอัจฉริยะ ให้คำแนะนำเมนูอาหารสุขภาพสั้นๆ เข้าใจง่าย และถูกต้องตามหลักการแพทย์");
             
             Swal.fire({ 
                 title: `✨ เมนูสุขภาพสำหรับ ${currentDiseaseTitle}`, 
@@ -494,7 +496,7 @@
             btn.disabled = false;
         }
 
-        // --- Chatbot Logic ---
+        // --- Chatbot UI Logic ---
         async function sendChatMessage() {
             const input = document.getElementById('user-input');
             const text = input.value.trim();
@@ -519,7 +521,7 @@
             chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        // --- Navigation & Core Logic ---
+        // --- Standard App Functions ---
         function goPage(id) {
             document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
             document.getElementById(`page-${id}`).classList.remove('hidden');

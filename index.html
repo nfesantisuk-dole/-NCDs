@@ -37,7 +37,7 @@
         .hover-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .hover-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(8, 145, 178, 0.2); }
 
-        /* Certificate Styling (A4 Landscape) */
+        /* --- Certificate Styling (A4 Landscape) --- */
         .cert-container {
             width: 1122px; height: 794px; 
             background: white; position: relative;
@@ -54,7 +54,7 @@
         }
         .cert-border-main { position: absolute; inset: 25px; border: 8px double var(--secondary); }
         .cert-border-gold { position: absolute; inset: 40px; border: 2px solid var(--accent); }
-        .corner { position: absolute; width: 120px; height: 120px; border: 4px solid var(--accent); z-index: 10; }
+        .corner { position: absolute; width: 100px; height: 100px; border: 3px solid var(--accent); z-index: 10; }
         .corner-tl { top: 40px; left: 40px; border-right: none; border-bottom: none; }
         .corner-tr { top: 40px; right: 40px; border-left: none; border-bottom: none; }
         .corner-bl { bottom: 40px; left: 40px; border-right: none; border-top: none; }
@@ -62,9 +62,11 @@
 
         @media print {
             @page { size: landscape; margin: 0; }
-            body * { visibility: hidden; }
-            #cert-final, #cert-final * { visibility: visible; }
-            #cert-final { position: fixed; left: 0; top: 0; width: 1122px; height: 794px; z-index: 9999; margin: 0; transform: none !important; box-shadow: none; }
+            html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: white !important; }
+            .no-print { display: none !important; }
+            #cert-overlay { background: white !important; position: absolute; inset: 0; z-index: 9999; display: block !important; overflow: hidden !important; }
+            #cert-wrapper { transform: scale(0.98) !important; transform-origin: top center !important; margin: 0 auto !important; position: relative; border: none !important; box-shadow: none !important; }
+            #cert-final { display: block !important; position: relative; box-shadow: none !important; border: none !important; margin: 0 auto !important; }
         }
 
         .btn-gradient {
@@ -103,11 +105,11 @@
 <body class="text-slate-600 bg-slate-50">
 
     <!-- AI Assistant UI -->
-    <div class="ai-fab" onclick="toggleChat()" title="✨ คุยกับ AI ผู้ช่วยสุขภาพ">
+    <div class="ai-fab no-print" onclick="toggleChat()" title="✨ คุยกับ AI ผู้ช่วยสุขภาพ">
         <i class="fas fa-robot"></i>
     </div>
     
-    <div id="ai-chat" class="chat-box">
+    <div id="ai-chat" class="chat-box no-print">
         <div class="chat-header">
             <span>✨ AI ผู้ช่วยสุขภาพ NCDs</span>
             <button onclick="toggleChat()"><i class="fas fa-times"></i></button>
@@ -122,7 +124,7 @@
     </div>
 
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full glass shadow-sm z-50 border-b border-white/50">
+    <nav class="fixed top-0 w-full glass shadow-sm z-50 border-b border-white/50 no-print">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <div class="flex items-center gap-3 cursor-pointer select-none group" onclick="goPage('home')">
                 <div class="w-12 h-12 bg-gradient-to-tr from-cyan-600 to-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-all">
@@ -143,7 +145,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main id="main-content" class="pt-24 min-h-screen">
+    <main id="main-content" class="pt-24 min-h-screen no-print">
         
         <!-- 1. HOME -->
         <section id="page-home" class="page-section max-w-7xl mx-auto px-6 py-12 lg:py-24 fade-in">
@@ -158,7 +160,7 @@
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600">ภัยเงียบ NCDs</span>
                     </h1>
                     <p class="text-xl text-slate-500 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
-                        โครงการรณรงค์เพื่อสุขภาพที่ดีอย่างยั่งยืน เรียนรู้สาเหตุ อาการ และพฤติกรรมเสี่ยงของกลุ่มโรคไม่ติดต่อเรื้อรัง พร้อมรับเกียรติบัตรทันทีเมื่อผ่านการทดสอบ
+                        โครงการรณรงค์เพื่อสุขภาพที่ดีอย่างยั่งยืน เรียนรู้สาเหตุ อาการ และพฤติกรรมเสี่ยงของกลุ่มโรคไม่ติดต่อเรื้อรัง พร้อมรับเกียรติบัตรรับรองความรู้ทันทีเมื่อผ่านการทดสอบ
                     </p>
                     <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start pt-4">
                         <button onclick="goPage('exhibition')" class="btn-gradient text-white px-10 py-5 rounded-[2rem] font-bold shadow-2xl shadow-cyan-600/30 flex items-center justify-center gap-4 text-lg">
@@ -231,14 +233,14 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-500 py-12 border-t border-slate-800">
+    <footer class="bg-slate-900 text-slate-500 py-12 border-t border-slate-800 no-print">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <p class="text-sm tracking-widest">&copy; 2026 นิทรรศการ NCDs ออนไลน์ | สกร.ระดับอำเภอดอยหล่อ</p>
         </div>
     </footer>
 
     <!-- MODAL -->
-    <div id="modal" class="fixed inset-0 z-[100] hidden">
+    <div id="modal" class="fixed inset-0 z-[100] hidden no-print">
         <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-md" onclick="closeModal()"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
             <div class="bg-white w-full max-w-6xl max-h-[90vh] rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row fade-in">
@@ -271,41 +273,66 @@
         </div>
     </div>
 
-    <!-- CERTIFICATE -->
-    <div id="cert-overlay" class="fixed inset-0 bg-slate-900 z-[200] hidden overflow-y-auto no-print">
+    <!-- CERTIFICATE OVERLAY -->
+    <div id="cert-overlay" class="fixed inset-0 bg-slate-900 z-[200] hidden overflow-y-auto">
         <div class="min-h-screen py-16 px-6 flex flex-col items-center">
             <div class="mb-12 text-center text-white no-print">
                 <h2 class="text-3xl font-bold mb-4">เกียรติบัตรของคุณพร้อมแล้ว!</h2>
                 <div class="flex gap-4 justify-center">
                     <button onclick="window.print()" class="bg-white text-slate-900 px-8 py-4 rounded-3xl font-bold shadow-xl flex items-center gap-3">
-                        <i class="fas fa-print"></i> พิมพ์ / PDF
+                        <i class="fas fa-print"></i> พิมพ์ / PDF (1 หน้า)
                     </button>
                     <button onclick="location.reload()" class="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-3xl font-bold">ปิด</button>
                 </div>
             </div>
-            <div id="cert-wrapper" class="origin-top">
+            <div id="cert-wrapper" class="origin-top border-none">
                 <div id="cert-final" class="cert-container cert-visible font-sarabun">
                     <div class="cert-bg-pattern"></div>
                     <div class="cert-border-main"></div>
                     <div class="cert-border-gold"></div>
                     <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
-                    <div class="relative z-10 h-full flex flex-col items-center justify-between p-24 text-center">
-                        <div class="space-y-4">
-                            <i class="fas fa-heart-circle-check text-8xl text-[#164e63] mb-4"></i>
-                            <h3 class="text-xl font-bold text-amber-600 tracking-[0.5em] uppercase">Achievement Certificate</h3>
-                            <h1 class="text-5xl font-bold text-[#164e63] mt-4 uppercase">เกียรติบัตรฉบับนี้มอบให้เพื่อแสดงว่า</h1>
+                    
+                    <div class="relative z-10 h-full flex flex-col items-center justify-between p-16 text-center">
+                        <!-- Header Section -->
+                        <div class="space-y-3">
+                            <i class="fas fa-heart-circle-check text-7xl text-[#164e63] mb-2"></i>
+                            <h3 class="text-sm font-bold text-amber-600 tracking-[0.4em] uppercase">Knowledge Achievement</h3>
+                            <h1 class="text-3xl font-bold tracking-[0.1em] text-[#164e63] mt-2 uppercase">เกียรติบัตรฉบับนี้มอบให้เพื่อแสดงว่า</h1>
                         </div>
-                        <div class="my-6 w-full">
-                            <h2 id="display-name" class="text-[5.5rem] font-bold text-slate-800 leading-none py-4 border-b-2 border-slate-200 inline-block min-w-[650px]">...</h2>
+
+                        <!-- Recipient Name -->
+                        <div class="my-4 w-full">
+                            <h2 id="display-name" class="text-5xl font-bold text-slate-800 leading-none py-4 border-b-2 border-slate-200 inline-block min-w-[500px]">...</h2>
                         </div>
-                        <div class="space-y-4">
-                            <h3 class="text-4xl font-bold text-[#164e63]">ผ่านการทดสอบระบบนิทรรศการออนไลน์ "รู้เท่าทันภัยเงียบ กลุ่มโรค NCDs 2026"</h3>
-                            <p class="text-xl text-slate-400 mt-6 italic">สกร.ระดับอำเภอดอยหล่อ จังหวัดเชียงใหม่</p>
+
+                        <!-- Description Section -->
+                        <div class="space-y-3">
+                            <p class="text-lg text-slate-500 font-medium">ได้ผ่านการทดสอบระบบนิทรรศการออนไลน์</p>
+                            <h3 class="text-2xl font-bold text-[#164e63] tracking-tight">"รู้เท่าทันภัยเงียบ กลุ่มโรค NCDs 2026"</h3>
+                            <p class="text-base text-slate-400 mt-4 italic">สกร.ระดับอำเภอดอยหล่อ จังหวัดเชียงใหม่</p>
                         </div>
-                        <div class="w-full flex justify-between items-end mt-10 px-6">
-                            <p id="display-id" class="text-lg font-bold font-mono text-cyan-800">REF: NCD-XXXXX</p>
-                            <img id="display-qr" src="" class="w-24 h-24">
-                            <p id="display-date" class="text-sm font-bold text-slate-800">...</p>
+
+                        <!-- Footer Section -->
+                        <div class="w-full grid grid-cols-3 items-end mt-6 px-12">
+                            <div class="text-left">
+                                <p class="text-[9px] text-slate-400 font-mono tracking-widest uppercase mb-1">Validation No.</p>
+                                <p id="display-id" class="text-base font-bold font-mono text-cyan-800">REF: NCD-XXXXX</p>
+                            </div>
+                            
+                            <div class="flex flex-col items-center">
+                                <div class="w-20 h-20 rounded-full border-4 border-[#164e63]/10 flex items-center justify-center relative">
+                                    <p class="text-[8px] font-bold text-[#164e63] text-center leading-tight">OFFICIALLY<br>VERIFIED</p>
+                                </div>
+                                <p class="text-[8px] font-bold text-slate-400 mt-2 uppercase tracking-[0.1em]">Digital Authentication</p>
+                            </div>
+
+                            <div class="text-right flex flex-col items-end">
+                                <div class="bg-white p-2 border border-slate-100 mb-1 inline-block">
+                                    <img id="display-qr" src="" class="w-20 h-20">
+                                </div>
+                                <p class="text-[9px] text-slate-400 font-mono uppercase mb-1">Issued Date</p>
+                                <p id="display-date" class="text-sm font-bold text-slate-800">...</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -315,9 +342,7 @@
 
     <script>
         // --- ส่วนกำหนดค่า (Configuration) ---
-        // 1. ใส่ URL จาก Google Apps Script ที่ Deploy แล้ว
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxmRN5CZlCwhZ4rXrNXNHzT9lsUIZGWbQOZfJ5cbZs4btfBeNiUnjCMXil-sEYG6GxDQ/exec'; 
-        // 2. ใส่ API Key สำหรับ Gemini AI
         const apiKey = ""; 
 
         const diseases = [
@@ -547,7 +572,6 @@
             document.getElementById('display-id').innerText = `REF: ${id}`;
             document.getElementById('display-date').innerText = date;
             
-            // สร้างลิงก์ QR Code สำหรับตรวจสอบกลับมาที่หน้านี้ (Verify System)
             const verifyLink = window.location.origin + window.location.pathname + '?verify=' + id;
             document.getElementById('display-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyLink)}`;
             
@@ -557,6 +581,7 @@
 
         function scaleCert() {
             const wrapper = document.getElementById('cert-wrapper');
+            if(!wrapper) return;
             const screenW = window.innerWidth - 64;
             const certW = 1122;
             if(screenW < certW) {

@@ -109,7 +109,7 @@
             <i class="fas fa-heart-pulse text-cyan-600 text-xl"></i>
             <span class="font-bold text-slate-800">NCDs 2026</span>
         </div>
-        <div class="text-[10px] bg-cyan-100 text-cyan-700 font-bold px-2 py-1 rounded">Online</div>
+        <div class="text-[10px] bg-cyan-100 text-cyan-700 font-bold px-2 py-1 rounded">สกร.ดอยหล่อ</div>
     </div>
 
     <!-- Bottom Navigation (Mobile Only) -->
@@ -152,7 +152,7 @@
     <!-- Main Content -->
     <main id="main-content" class="pt-16 md:pt-24 min-h-screen no-print pb-20 md:pb-0">
         
-        <!-- 1. HOME -->
+        <!-- 1. HOME (Updated with Video) -->
         <section id="page-home" class="page-section max-w-7xl mx-auto px-6 py-10 md:py-24 fade-in">
             <div class="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
                 <div class="space-y-6 md:space-y-8 text-center lg:text-left">
@@ -160,7 +160,7 @@
                         <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
                         สกร.ระดับอำเภอดอยหล่อ
                     </div>
-                    <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold text-slate-800 leading-tight tracking-tighter">
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-800 leading-tight tracking-tighter">
                         รู้เท่าทัน<br>
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600">ภัยเงียบ NCDs</span>
                     </h1>
@@ -178,10 +178,24 @@
                         </button>
                     </div>
                 </div>
-                <div class="relative flex justify-center items-center py-10 lg:py-0">
-                    <div class="absolute w-[300px] md:w-[400px] h-[300px] md:h-[400px] bg-cyan-200 blur-[80px] md:blur-[100px] opacity-40 rounded-full"></div>
-                    <div class="relative bg-white/40 p-10 md:p-12 rounded-[3rem] md:rounded-[4rem] border border-white/50 shadow-2xl backdrop-blur-md">
-                        <i class="fas fa-shield-heart text-[100px] md:text-[150px] text-cyan-600"></i>
+                <!-- Video Section -->
+                <div class="space-y-4">
+                    <div class="relative bg-white p-4 rounded-[2.5rem] md:rounded-[3rem] shadow-2xl border border-slate-100">
+                        <div class="aspect-video w-full overflow-hidden rounded-[1.5rem] md:rounded-[2rem] bg-slate-100">
+                            <iframe 
+                                class="w-full h-full" 
+                                src="https://www.youtube.com/embed/99863VpBWQ8" 
+                                title="ความรู้เรื่องโรค NCDs" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                    <!-- Credits -->
+                    <div class="flex items-center justify-center lg:justify-end gap-2 px-4 text-slate-400 text-[10px] md:text-xs">
+                        <i class="fas fa-info-circle"></i>
+                        <span>ขอบคุณวิดีโอให้ความรู้จาก: <span class="font-bold text-slate-500">NakornthonHospital</span></span>
                     </div>
                 </div>
             </div>
@@ -614,4 +628,3 @@
     </script>
 </body>
 </html>
-
